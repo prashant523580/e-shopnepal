@@ -1,0 +1,88 @@
+.nav{
+    padding: 10px 12px;
+    background: rgb(255, 255, 255);
+    color: rgb(59, 58, 58);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9999999999;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.37);
+  }
+  .logo{
+    color: rgb(43, 42, 42);
+    font-size:30px;
+  }
+    .nav_link{
+      width: 50%;
+      display:flex;
+      justify-content: space-around;
+    }
+    .link{
+      padding: 4px 0px;
+      text-align: center;
+      text-transform: capitalize;
+      transition: all .3s ease;
+    }
+    .link.active{
+       animation: blink 2s linear;
+       text-transform: capitalize;
+       position: relative;
+       box-shadow: 0 3px 0 white;
+    }
+    
+    .menu{
+        display: none;
+    }
+    .menu button{
+        min-width: 40px;
+        height: 40px;
+        border-radius: 40%;
+        border: 0;
+        outline: 0;
+        background: none;
+        color: white;
+    }
+    @media screen and (max-width:600px) {
+        .nav{
+            padding: 8px 10px;
+            /* background: black;
+            color: white; */
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+          }
+          .logo{
+            color: var(--main-color);
+            font-size:30px;
+          }
+            .nav_link{
+              width: 55%;
+              flex-direction: column;
+              height: 100vh;
+              position: fixed;
+              right: 0;
+              top: 0;
+              background: black;
+              z-index: 9999;
+              justify-content: flex-start;
+              transition: .3s all ease;
+            }
+            .link{
+                margin: .3em 0;
+                color: white;
+            }
+            .link.active{
+             transform: scale(1.03);
+            }
+            .menu{
+                display: block;
+                /* background-color: black; */
+                
+              }
+              .menu svg{
+              color: black;
+              
+            }
+            
+        
+    }
