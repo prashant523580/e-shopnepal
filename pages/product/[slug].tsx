@@ -49,7 +49,7 @@ export default function ProductSlug(props: any) {
   const getProductByVarient =(newColor : any,newSize : any) => {
     let dev = process.env.NODE_ENV !== "production";
     let { DEV_URL, PROD_URL } = process.env;
-    let url = `${dev ? DEV_URL : PROD_URL}/product/${varients[newColor][newSize]["slug"]}`
+    let url = `/product/${varients[newColor][newSize]["slug"]}`
     window.location.href = url
     // console.log(varients);
   }
