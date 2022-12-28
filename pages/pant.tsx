@@ -13,13 +13,16 @@ export default function Pants(props:any) {
      setTimeout(() => {
         setLoading(false)
      },100) 
+     
+     if(props.products.products != null){
      let prod : any = [];
      Object.keys(props.products.products).map((key: any) => {
       // console.log(props.products.products[key])
       prod.push(props.products.products[key])
     })
     setProduct(prod)
-  },[loading,props])
+  }
+  },[])
   const loadMoreData = () => {
     setLoader(true)
     setTimeout(() => {
@@ -41,7 +44,7 @@ export default function Pants(props:any) {
            <ProductContainer>
                 <div className="flex flex-wrap -m-4 justify-center">
                   {
-                    product.slice(0,numb).map((product:any ,ind:any) =>{
+                  product.length > 0 &&  product.slice(0,numb).map((product:any ,ind:any) =>{
                       return(
                       <ProductCard
                       key={ind}

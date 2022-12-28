@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse} from 'next';
-const ObjectId = require("mongodb").ObjectId
-import {connectToDatabase} from "../../lib/db";
+import {connectToDatabase} from "../../lib/mongodb";
 
 const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
  
@@ -12,7 +11,7 @@ const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
 const getProductBySlug = async (req:NextApiRequest,res:NextApiResponse) => {
 
     try{
-        console.log(req.body)
+        // console.log(req.body)
         let {db} = await connectToDatabase();
         let products = await db.collection("Products").find({_id:req.body})
         .toArray();

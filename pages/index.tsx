@@ -27,7 +27,7 @@ export default function Home(props:any) {
     <h1 className='font-bold text-center text-2xl py-4'>Feature Products</h1>
     <div className="flex flex-wrap -m-4 justify-center ">
       {
-        props.products && Object.keys(props.products.products).map((key:any,ind:any) => {
+        props.products.products != null && Object.keys(props.products.products).map((key:any,ind:any) => {
           return(
             <ProductCard
             key={ind}

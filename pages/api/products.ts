@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse} from 'next';
 import slugify from 'slugify';
 const ObjectId = require("mongodb").ObjectId
-import {connectToDatabase} from "../../lib/db";
+import {connectToDatabase} from "../../lib/mongodb";
 
 const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
  
@@ -24,7 +24,7 @@ const getProducts = async (req:NextApiRequest,res:NextApiResponse) => {
         // console.log(typeof products)
         let tshirts : any = {};
         for(let item of products){
-            console.log(item.title)
+            // console.log(item.title)
             if(item.title in tshirts){
                 if(!tshirts[item.title].color.includes(item.color) && item.availableQuantity > 0){
                     tshirts[item.title].color.push(item.color)
