@@ -5,6 +5,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import CheckIcon from '@mui/icons-material/Check';
 import { Button } from "@mui/material";
 import Link from 'next/link';
+import { connectToDatabase } from '../../lib/mongodb';
 export default function ProductSlug(props: any) {
   const router = useRouter();
   const [product] = React.useState<any>(props.product);
@@ -47,8 +48,6 @@ export default function ProductSlug(props: any) {
     props.addToCart(cartProduct)
   }
   const getProductByVarient =(newColor : any,newSize : any) => {
-    let dev = process.env.NODE_ENV !== "production";
-    let { DEV_URL, PROD_URL } = process.env;
     let url = `/product/${varients[newColor][newSize]["slug"]}`
     window.location.href = url
     // console.log(varients);
@@ -196,12 +195,28 @@ export const getServerSideProps = async (ctx: any) => {
   let { DEV_URL, PROD_URL } = process.env;
   // console.log(ctx.query.slug)
   let { slug } = ctx.query;
-  let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/product/${slug}`);
-  let products = await res.json();
-  let {varients,product} = products
+  // let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/product/getProductBySlug`);
+  // let products = await res.json();
+  // let {varients,product} = products
+  let {db} = await connectToDatabase();
+        let product = await db.collection("Products").findOne({slug:ctx.query.slug});
+   
+            let varients = await db.collection("Products").find({title: product.title}).toArray();
+            // console.log(varients)
+                let colorSizeSlug : any = {};  //{ color:{size: {slug : #}}}
+                for(let item of varients){
+                       if( Object.keys(colorSizeSlug).includes(item.color)){
+                            colorSizeSlug[item.color][item.size] = {slug:item.slug}
+                        }else{
+                            colorSizeSlug[item.color] = {}
+                            colorSizeSlug[item.color][item.size] = {slug:item.slug}
+                        }
+                    }
+                    console.log(colorSizeSlug)
   return {
     props: {
-      product,varients
+      product: JSON.parse(JSON.stringify(product)),
+      varients: JSON.parse(JSON.stringify(colorSizeSlug))
     }
   }
 }
