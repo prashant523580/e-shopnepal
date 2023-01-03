@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Container from '../components/Container';
 import ProductCard from '../components/productCard'
 import ProductContainer from '../components/ProductContainer';
 
@@ -31,7 +32,7 @@ export default function Pants(props:any) {
    },500) 
   }
     return (
-      <>
+      <Container>
         {
 
           loading ?
@@ -82,7 +83,7 @@ export default function Pants(props:any) {
           }
              </>
         }
-      </>
+      </Container>
     )
       
   }

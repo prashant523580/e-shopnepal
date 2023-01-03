@@ -43,7 +43,7 @@ export function DropdownMenu(props: any) {
   }, [])
   return (
     <div  >
-      <Button ref={dropdownRef} onClick={() => setDropDown(!dropdown)} className=" text-black bg-black-700 hover:bg-black-800  focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-black-600 dark:hover:bg-black-700 dark:focus:ring-black-800" type="button">{props.icon} <svg className="animate ml-2 w-4 h-4" style={{
+      <Button ref={dropdownRef}  onClick={() => setDropDown(!dropdown)} className=" text-black bg-black-700 hover:bg-black-800  focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-black-600 dark:hover:bg-black-700 dark:focus:ring-black-800" type="button">{props.icon} <svg className="animate ml-2 w-4 h-4" style={{
         transform: dropdown ? "rotate(-180deg)" : "rotate(0)"
       }} aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></Button>
       {/* <!-- Dropdown menu --> */}
@@ -57,8 +57,15 @@ export function DropdownMenu(props: any) {
         }} className="animate absolute shadow-xl z-50 w-40 mr-5 bg-white py-2 text-sm text-gray-700 dark:text-gray-200">
           {props.childLink.map((link: any, ind: any) => {
             return (
-              <li key={ind}>
-                <Link href={link.path} className=" mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{link.label}</Link>
+              <li 
+               key={ind} onClick={() => {
+                if(link.onClick){
+                  link.onClick && link.onClick()
+                }
+              }}>
+                {link.path ? <Link className="cursor-pointer mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" href={link.path} >{link.label}</Link>
+          : <a className="cursor-pointer mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> {link.label}</a>  
+        }
               </li>
             )
           })}
@@ -163,7 +170,28 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
             }
           </div>
           <div className='flex items-center justify-end' >
+          <DropdownMenu icon={<AccountCircleIcon />}
+              childLink={this.props.user.value == null ? [
 
+                {
+                  label: "login",
+                  path: "/login"
+                },
+              ] : [
+                {
+                  label: "Profile",
+                  path: "/user/profile"
+                },
+                {
+                  label: "Orders ",
+                  path: "/order"
+                },
+                {
+                  label: "Logout",
+                  onClick: this.props.logout
+                },
+              ]}
+            />
             <Button style={{
               color:"inherit",
               background: "inherit"
@@ -252,10 +280,10 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                             <p>Rs.{this.props.subTotal}</p>
                           </div>
                           <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                          <div className="mt-6 flex  justify-center text-center">
+                          <div className="mt-6 flex space-x-2  justify-center text-center">
                             <Link href="/checkout" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
-                            <button onClick={this.props.clearCart} type="button" className="font-medium bg-red-600 px-6 py-3 text-white hover:text-white">
-                              clear
+                            <button onClick={this.props.clearCart} type="button" className="font-medium bg-red-600 px-6 py-3 rounded-md text-white hover:text-white">
+                              Clear
                             </button>
                           </div>
                         </div>
@@ -267,28 +295,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
 
             </div>
 
-            <DropdownMenu icon={<AccountCircleIcon />}
-              childLink={this.props.user == null ? [
-
-                {
-                  label: "login",
-                  path: "/login"
-                },
-              ] : [
-                {
-                  label: "Profile",
-                  path: "/user/profile"
-                },
-                {
-                  label: "Orders ",
-                  path: "/order"
-                },
-                {
-                  label: "Logout",
-                  path: "/logout"
-                },
-              ]}
-            />
+            
             <div className={styles.menu}>
               <Button aria-label={"menu"} onClick={() => this.setState({ openDrawer: !this.state.openDrawer })}> <MenuIcon /></Button>
             </div>

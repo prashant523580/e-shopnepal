@@ -3,11 +3,16 @@ import NextProgress from 'next-progress';
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import React, { Suspense } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import Container from '../components/Container';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [cart, setCart] = React.useState<any>({});
   const [subTotal, setSubTotal] = React.useState<number>(0);
-const [user,setUser] = React.useState<any>();
+  const [keys, setKeys] = React.useState<number>(0);
+  const router = useRouter()
+const [user,setUser] = React.useState<any>({value : null});
   React.useEffect(() => {
     try{
 
@@ -17,6 +22,7 @@ const [user,setUser] = React.useState<any>();
         // console.log(JSON.parse(data))
         data = JSON.parse(data)
         setCart(data);
+        saveCart(data)
         let subTot = 0;
         let keys = Object.keys(data);
         // console.log(newCart)
@@ -28,25 +34,18 @@ const [user,setUser] = React.useState<any>();
     }catch(error){
       localStorage.clear()
     }
+    let token = localStorage.getItem("token");
+    if(token){
+      // let Localuser : any = localStorage.getItem("user");
 
-  },[])
-  React.useEffect(() => {
-    try{
-
-      if(localStorage.getItem("user")){
-        let Localuser : any = localStorage.getItem("user");
-
-        if(Localuser){
-          Localuser = JSON.parse(Localuser);
-        }
-        setUser(Localuser)
-      }
-      
-    }catch(error){
-      localStorage.clear()
+      // if(Localuser){
+      //   Localuser = JSON.parse(Localuser);
+      // }
+      setUser({value: token})
+      setKeys(Math.random())
     }
+  },[router.query])
 
-  },[])
   const saveCart = (newCart: any) => {
     localStorage.setItem("cart", JSON.stringify(newCart))
     let subTot = 0;
@@ -92,15 +91,28 @@ const [user,setUser] = React.useState<any>();
     setCart({});
     saveCart({})
   }
-  React.useEffect(() => {
-    // console.log(cart)
-  },[cart])
+ 
   const buyNow = (cartItem: any) => {
     // console.log(cartItem)
     cartItem.qty = 1
     saveCart({})
-    localStorage.clear();
+    // localStorage.clear();
     addToCart(cartItem)
+  }
+  const logout = () => {
+    localStorage.removeItem("token"); 
+    setKeys(Math.random())
+    toast.success("Successfully Logout.", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+    window.location.reload()
   }
   const renderLoading = () => {
     return(<>
@@ -113,9 +125,12 @@ const [user,setUser] = React.useState<any>();
 
     <>
     <NextProgress   delay={300} options={{ showSpinner: false }} />
-    <Layout user={user} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart}>
+    <ToastContainer/>
+    <Layout key={keys} logout={logout} user={user} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart}>
+      <Container>
 
       <Component user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
+      </Container>
     </Layout>
   </>
     ) 

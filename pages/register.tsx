@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { Component } from 'react'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +12,7 @@ export default function Register() {
     email:"",
     password:""
   })
+  const router = useRouter();
 const inputEvent = (e:any) => {
  let {name,value} = e.target;
  setUser((pre: any) => {
@@ -44,7 +46,7 @@ const submitForm = async (e: any) => {
       })
       setUser({email:"",name:"",password:""})
       localStorage.setItem("user",JSON.stringify(data.user))
-      window.location.href = "/"
+      router.push("/")
   }else{
 
     toast.error(data.error,{
