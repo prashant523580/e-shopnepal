@@ -17,14 +17,14 @@ export default function Home(props:any) {
         setLoading(false)
      },500) 
      
-     if(props.products.products != null){
-     let prod : any = [];
-     Object.keys(props.products.products).map((key: any) => {
-      // console.log(props.products.products[key])
-      prod.push(props.products.products[key])
-    })
-    setProduct(prod)
-  }
+    //  if(props.products.products != null){
+    //  let prod : any = [];
+    //  Object.keys(props.products.products).map((key: any) => {
+    //   // console.log(props.products.products[key])
+    //   prod.push(props.products.products[key])
+    // })
+    // setProduct(prod)
+    // }
   },[])
   const loadMoreData = () => {
     setLoader(true)

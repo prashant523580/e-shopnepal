@@ -48,7 +48,7 @@ export default function ProductSlug(props: any) {
       qty: 1
     }
     props.addToCart(cartProduct)
-    // notify("successfully added to cart.")
+    notify("successfully added to cart.")
   }
   const getProductByVarient =(newColor : any,newSize : any) => {
     // console.log(newColor,newSize)
@@ -227,7 +227,7 @@ export default function ProductSlug(props: any) {
               <input value={pin} onChange={(e) => setPin(parseInt(e.target.value))} placeholder='pincode' type="number" className=' bg-gray-300  p-2 w-[25vw] outline-none rounded-sm' />
               <Button onClick={checkServiceAbility} className='text-white hover:bg-slate-700 bg-slate-600 w-max-[30vw]'>{checkMessage}</Button>
 
-              {
+              {/* {
                 // checkMessage === "Verified" || checkMessage === "Unverified" &&
                 !isVerified && pin != null &&
                 <span className={"bg-red-600 w-8 h-8 rounded-full text-center flex justify-center text-white items-center"}> <HighlightOffIcon /> </span>
@@ -236,7 +236,7 @@ export default function ProductSlug(props: any) {
                 isVerified && pin != null &&
 
                 <span className={"bg-green-600 w-8 h-8 rounded-full text-center flex justify-center text-white items-center"}><CheckIcon /> </span>
-              }
+              } */}
             </div>
 
           </div>

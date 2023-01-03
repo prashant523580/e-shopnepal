@@ -75,7 +75,7 @@ export default function Checkout(props:any) {
                   Object.keys(props.cart).length > 0 &&
                   Object.keys(props.cart).map((key, ind) => {
                     return (
-                      <li className="flex py-6">
+                      <li className="flex py-6" key={ind}>
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <Image src={props.cart[key].imgSrc} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center"/>
                       </div>

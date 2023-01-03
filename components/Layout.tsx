@@ -1,5 +1,4 @@
-import Script from 'next/script'
-import React, { Component } from 'react'
+import React from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
 
