@@ -17,7 +17,6 @@ const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
 const getProducts = async (req:NextApiRequest,res:NextApiResponse) => {
 
     try{
-        console.log(req.query.params)
         let {db} = await connectToDatabase();
         let products = await db.collection("Products").find({})
         .toArray();
@@ -55,7 +54,7 @@ const addProducts = async  (req:NextApiRequest,res:NextApiResponse) => {
          await db.collection("Products").insertOne({
             title:req.body.title,
             imgSrc:req.body.imgSrc,
-            slug:slugify(req.body.title),
+            slug:slugify(req.body.title + " "+ req.body.size + " "+req.body.color),
             category: req.body.category,
             desc: req.body.desc,
             price: req.body.price,

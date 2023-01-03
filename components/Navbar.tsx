@@ -8,6 +8,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import Image from 'next/image';
 
 interface PropsTypes {
   openDrawer: boolean
@@ -18,7 +19,8 @@ interface PropsTypes {
   addToCart: any,
   deleteFromCart: any,
   clearCart: any,
-  subTotal: any
+  subTotal: any,
+  user:any
 }
 
 export function DropdownMenu(props: any) {
@@ -65,6 +67,7 @@ export function DropdownMenu(props: any) {
     </div>
   );
 }
+
 class Navbar extends Component<any, PropsTypes, WithRouterProps> {
   constructor(props: any) {
     super(props)
@@ -77,22 +80,30 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
       deleteFromCart: this.props.deleteFromCart,
       subTotal: this.props.subTotal,
       clearCart: this.props.clearCart,
-      cartConRef:React.createRef()
+      cartConRef: React.createRef(),
+      user:this.props.user
     }
     this.componentDidMount = () => {
+      console.log(this.state.user)
       if (typeof window !== "undefined") {
         window.addEventListener("click", (e) => {
           const target = e.target;
-          if (!this.state.navLinkRef.current || !this.state.navLinkRef.current.contains(target) ) {
-            this.setState({
-              openDrawer: false
-            })
-            // this.state.cartConRef.current.classList.remove("translate-x-0");
-            // this.state.cartConRef.current.classList.add("translate-x-full");
+          if (!this.state.navLinkRef.current || !this.state.navLinkRef.current.contains(target)) {
+            this.setState({openDrawer: false})
           }
         })
       }
     }
+  }
+
+  cartIncrement = (item: any) => {
+    const { slug, qty, title, price, size, varient } = item;
+    let incrementCartQuantity = {
+      slug,
+      qty: 1,
+      title, price, size, varient,
+    }
+    this.props.addToCart(incrementCartQuantity)
   }
   toggleCart = () => {
     if (this.state.cartConRef.current.classList.contains("translate-x-full")) {
@@ -105,15 +116,6 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
 
 
     }
-  }
-  cartIncrement = (item : any) => {
-    const {slug, qty, title, price, size, varient} = item;
-    let incrementCartQuantity = {
-      slug,
-      qty : 1,
-      title,price,size,varient,
-    }
-      this.props.addToCart(incrementCartQuantity)
   }
   render(): React.ReactNode {
     let links = [
@@ -142,8 +144,8 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
     return (
       <>
 
-        <nav ref={this.state.navLinkRef} className={styles.nav +" sticky top-0"}>
-          <div className={styles.logo}><Link href="/" >E-ShopNepal</Link></div>
+        <nav ref={this.state.navLinkRef} className={styles.nav + " sticky top-0"}>
+          <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
           <div className={styles.nav_link} style={{
             right: this.state.openDrawer ? "0" : "-65%"
           }}>
@@ -162,55 +164,117 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
           </div>
           <div className='flex items-center justify-end' >
 
-            <Link ref={this.state.cartRef} href="#" onClick={this.toggleCart}><ShoppingCartIcon /> {Object.keys(this.props.cart).length}</Link>
-            <div ref={this.state.cartConRef} className="bg-white shadow-lg py-1 px-2 flex flex-col h-[100vh] w-72  text-black fixed z-10 top-0 right-0 tranform transition-transform translate-x-full">
-              <div className="flex align-middle justify-between bg-gray p-1">
+            <Button style={{
+              color:"inherit",
+              background: "inherit"
+            }} onClick={this.toggleCart} ref={this.state.cartRef}><ShoppingCartIcon /> {Object.keys(this.props.cart).length}</Button>
+            <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
 
-                <h2 className='text-xl font-bold'>Sopping Carts</h2>
-                <span onClick={this.toggleCart} className=' cursor-pointer text-2xl '>x</span>
-              </div>
-              <ul className='p-2'>
-                {
-                  Object.keys(this.props.cart).length == 0 &&
-                  <li>no cart items.</li>
-                }
-                {
-                  Object.keys(this.props.cart).length > 0 &&
-                  Object.keys(this.props.cart).map((key, ind) => {
-                    return (
-                      <li className='flex justify-between items-center bg-gray-800 my-1 text-white p-2' key={ind}>
-                        <div className="grid">
+              {/* <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div> */}
 
-                          <h1 className='capitalize'> {this.props.cart[key].title}</h1>
-                          <p>Price: {this.props.cart[key].price}</p>
+              <div ref={this.state.cartConRef} className="fixed inset-0 overflow-hidden top-0 right-0 tranform transition-transform translate-x-full">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+
+                    <div className="pointer-events-auto w-screen max-w-md">
+                      <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                        <div className="flex-1 overflow-y-auto ">
+                          <div className="flex items-start justify-between sticky top-0 bg-gray-300 px-2 py-3">
+                            <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                            <div className="ml-3 flex h-7 items-center">
+                              <button onClick={this.toggleCart} type="button" className="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                                <span className="sr-only">Close panel</span>
+                                {/* <!-- Heroicon name: outline/x-mark --> */}
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="mt-8 px-3">
+                            <div className="flow-root">
+                              <ul role="list" className="-my-6 divide-y divide-gray-200">
+
+                                {
+                                  Object.keys(this.props.cart).length == 0 &&
+                                  <li>no cart items.</li>
+                                }
+                                {
+                                  Object.keys(this.props.cart).length > 0 &&
+                                  Object.keys(this.props.cart).map((key, ind) => {
+                                    return (
+                                      <li className="flex py-6" key={ind}>
+                                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                          <Image src={this.props.cart[key].imgSrc} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
+                                        </div>
+
+                                        <div className="ml-4 flex flex-1 flex-col">
+                                          <div>
+                                            <div className="flex justify-between text-base font-medium text-gray-900">
+                                              <h3>
+                                                <Link href={`/product/${this.props.cart[key].slug}`}>{this.props.cart[key].title}</Link>
+                                              </h3>
+                                              <p className="ml-4">Rs.{this.props.cart[key].price}</p>
+                                            </div>
+                                            <p className="mt-1 text-sm text-gray-500">{this.props.cart[key].category}</p>
+                                          </div>
+                                          <div className="flex flex-1 items-end justify-between text-sm">
+                                            <p className="text-gray-500">Qty {this.props.cart[key].qty}</p>
+
+                                            <div className="flex">
+
+                                              <div className="flex space-x-2 items-center ">
+                                                <button onClick={() => this.props.deleteFromCart(key, 1)} className='p-2 bg-gray-500 rounded-full w-6 h-6 text-center flex justify-center items-center'><RemoveIcon /></button>
+                                                <span className='p-2  w-8 text-center'>{this.props.cart[key].qty}</span>
+                                                <button
+                                                  onClick={() => this.cartIncrement(this.props.cart[key])}
+                                                  className='p-2 bg-gray-500 rounded-full w-6 h-6 flex justify-center items-center'><AddIcon /></button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    )
+                                  })
+                                }
+
+
+                                {/* <!-- More products... --> */}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex space-x-2 items-center ">
-                          <button onClick={() => this.props.deleteFromCart(key, 1)} className='p-2 bg-gray-500 rounded-full w-6 h-6 text-center flex justify-center items-center'><RemoveIcon /></button>
-                          <span className='p-2  w-8 text-center'>{this.props.cart[key].qty}</span>
-                          <button
-                          onClick={() => this.cartIncrement(this.props.cart[key])} 
-                          className='p-2 bg-gray-500 rounded-full w-6 h-6 flex justify-center items-center'><AddIcon /></button>
+
+                        <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
+                          <div className="flex justify-between text-base font-medium text-gray-900">
+                            <p>Subtotal</p>
+                            <p>Rs.{this.props.subTotal}</p>
+                          </div>
+                          <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                          <div className="mt-6 flex  justify-center text-center">
+                            <Link href="/checkout" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
+                            <button onClick={this.props.clearCart} type="button" className="font-medium bg-red-600 px-6 py-3 text-white hover:text-white">
+                              clear
+                            </button>
+                          </div>
                         </div>
-                      </li>
-                    )
-                  })
-                }
-
-
-              </ul>
-              <div className="flex justify-center space-x-2 ">
-                <Link href={"/checkout"} className='p-2 bg-orange-600 text-white capitalize rounded-sm'>checkout</Link>
-                <button onClick={() => this.props.clearCart} className='p-2 bg-red-600 text-white capitalize rounded-sm'>clear</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
+
             <DropdownMenu icon={<AccountCircleIcon />}
-              childLink={true ?[
-               
+              childLink={this.props.user == null ? [
+
                 {
                   label: "login",
                   path: "/login"
                 },
-              ] :[
+              ] : [
                 {
                   label: "Profile",
                   path: "/user/profile"
@@ -221,7 +285,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                 },
                 {
                   label: "Logout",
-                  path: "/"
+                  path: "/logout"
                 },
               ]}
             />

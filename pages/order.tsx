@@ -6,7 +6,7 @@ export default function Order(props: any) {
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-14 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+          <div className="lg:w-2/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest"></h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">Order Id: #</h1>
 
@@ -36,9 +36,9 @@ export default function Order(props: any) {
                       return (
 
                         <tr key={ind} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                          <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {props.cart[key].title}
-                          </th>
+                          <td scope="row" className="py-4 px-6 truncate font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {props.cart[key].title.slice(0,20) + "..."}
+                          </td>
                           <td className="py-4 px-6">
                             {props.cart[key].qty}
                           </td>
@@ -67,7 +67,7 @@ export default function Order(props: any) {
 
             </div>
           </div>
-          <Image width={100} height={100} alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+          {/* <Image width={100} height={100} alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" /> */}
         </div>
       </div>
     </section>

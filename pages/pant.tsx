@@ -6,13 +6,13 @@ export default function Pants(props:any) {
   const [loading,setLoading] = React.useState<boolean>(true);
   
   const [product,setProduct] = React.useState<any>([]);
-  const [numb,setNumb] = React.useState<number>(8);
+  const [numb,setNumb] = React.useState<number>(3);
   const [loader,setLoader] = React.useState<boolean>(false);
   
   React.useEffect(() => {
      setTimeout(() => {
         setLoading(false)
-     },100) 
+     },500) 
      
      if(props.products.products != null){
      let prod : any = [];
@@ -41,8 +41,8 @@ export default function Pants(props:any) {
               </div>
             </section>
             :
+            <>
            <ProductContainer>
-                <div className="flex flex-wrap -m-4 justify-center">
                   {
                   product.length > 0 &&  product.slice(0,numb).map((product:any ,ind:any) =>{
                       return(
@@ -60,11 +60,11 @@ export default function Pants(props:any) {
                   }
                  
               
-                </div>
                 {
             loader ? 
             <div className="loading">loading...</div> : null
           }
+            </ProductContainer>
           {
             numb <  product.length ? 
               loader ? null :
@@ -80,7 +80,7 @@ export default function Pants(props:any) {
             }}
              onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
           }
-             </ProductContainer>
+             </>
         }
       </>
     )

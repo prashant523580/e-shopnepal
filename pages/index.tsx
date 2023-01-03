@@ -1,10 +1,38 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import React from 'react';
 import ProductCard from '../components/productCard'
+import { connectToDatabase } from '../lib/mongodb'
 
 
 export default function Home(props:any) {
-
+  const [loading,setLoading] = React.useState<boolean>(true);
+  
+  const [product,setProduct] = React.useState<any>([]);
+  const [numb,setNumb] = React.useState<number>(4);
+  const [loader,setLoader] = React.useState<boolean>(false);
+  
+  React.useEffect(() => {
+     setTimeout(() => {
+        setLoading(false)
+     },500) 
+     
+     if(props.products.products != null){
+     let prod : any = [];
+     Object.keys(props.products.products).map((key: any) => {
+      // console.log(props.products.products[key])
+      prod.push(props.products.products[key])
+    })
+    setProduct(prod)
+  }
+  },[])
+  const loadMoreData = () => {
+    setLoader(true)
+    setTimeout(() => {
+      setLoader(false);
+      setNumb(numb + 4)
+   },500) 
+  }
   return (
     <>
       <Head>
@@ -13,7 +41,9 @@ export default function Home(props:any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Image src={"/images/banners/banner1.webp"} style={{
+     
+
+      {/* <Image src={"/images/banners/banner1.webp"} style={{
         width:"100%",
         objectFit:"contain"
       }}
@@ -21,22 +51,24 @@ export default function Home(props:any) {
       width={100}
       height={100}
       sizes={"100vw"}
-      alt='banner' /> 
+      alt='banner' />  */}
       <section className="text-gray-600 body-font">
-  <div className="container px-6 py-14 mx-auto">
-    <h1 className='font-bold text-center text-2xl py-4'>Feature Products</h1>
-    <div className="flex flex-wrap -m-4 justify-center ">
+     
+      {/* <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"> */}
+    <h2 className="text-center text-3xl font-bold py-4">Products For You</h2>
+
+    <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 px-4 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       {
-        props.products.products != null && Object.keys(props.products.products).map((key:any,ind:any) => {
+        props.products != null && Object.keys(props.products).slice(0,numb).map((key:any,ind:any) => {
           return(
             <ProductCard
             key={ind}
-            slug={"/product/"+props.products.products[key].slug}
-            title={props.products.products[key].title}
-            price={props.products.products[key].price}
-            category={props.products.products[key].category}
-            imgSrc={props.products.products[key].imgSrc}
-            size ={props.products.products[key].size}
+            slug={"/product/"+props.products[key].slug}
+            title={props.products[key].title}
+            price={props.products[key].price}
+            category={props.products[key].category}
+            imgSrc={props.products[key].imgSrc}
+            size ={props.products[key].size}
             />
           )
         })
@@ -44,21 +76,63 @@ export default function Home(props:any) {
      
      
     </div>
-  </div>
+          {
+            loader ? 
+            <div className="loading">loading...</div> : null
+          }
+          {
+            numb <  Object.keys(props.products).length ? 
+              loader ? null :
+            <button
+            style={{
+              width:  "150px",
+              margin:".3em auto",
+              marginLeft:".9em",
+              fontSize:"1.1em",
+              padding: ".6em .9em",
+              border:"0",
+              cursor:"pointer"
+            }}
+             onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
+          }
+  {/* </div> */}
 </section>
     </>   
   )
 }
 
 export const  getServerSideProps = async () => {
-  let dev = process.env.NODE_ENV !== "production";
-  let {DEV_URL,PROD_URL} = process.env;
+  // let dev = process.env.NODE_ENV !== "production";
+  // let {DEV_URL,PROD_URL} = process.env;
 
-  let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-  let products = await res.json();
+  // let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
+  // let products = await res.json();
+  let {db} = await connectToDatabase();
+        let products = await db.collection("Products").find({})
+        .toArray();
+        // console.log(typeof products)
+        let tshirts : any = {};
+        for(let item of products){
+            if(item.title in tshirts){
+                if(!tshirts[item.title].color.includes(item.color) && item.availableQuantity > 0){
+                    tshirts[item.title].color.push(item.color)
+                }
+                if(!tshirts[item.title].size.includes(item.size) && item.availableQuantity > 0){
+                    tshirts[item.title].size.push(item.size)
+                }
+            }else{
+                tshirts[item.title] =  item
+                if(item.availableQuantity > 0){
+                    tshirts[item.title].size = [item.size];
+                    tshirts[item.title].color = [item.color]
+                }
+            }
+
+        }
+        // console.log(JSON.parse(tshirts))
   return{
     props:{
-      products
+      products : JSON.parse(JSON.stringify(tshirts))
     }
   }
 }
