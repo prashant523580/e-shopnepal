@@ -12,7 +12,13 @@ export default function Register() {
     email:"",
     password:""
   })
-  const router = useRouter();
+  const router = useRouter()
+  React.useEffect(() => {
+
+    if (localStorage.getItem("token")) {
+      router.push("/")
+    }
+  }, [])
 const inputEvent = (e:any) => {
  let {name,value} = e.target;
  setUser((pre: any) => {

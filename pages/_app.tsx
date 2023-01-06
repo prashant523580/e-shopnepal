@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [keys, setKeys] = React.useState<number>(0);
   const router = useRouter()
 const [user,setUser] = React.useState<any>({value : null});
-  React.useEffect(() => {
+  React.useEffect(  ()  =>  {
     try{
 
       if (localStorage.getItem("cart")) {
@@ -22,13 +22,14 @@ const [user,setUser] = React.useState<any>({value : null});
         // console.log(JSON.parse(data))
         data = JSON.parse(data)
         setCart(data);
-        saveCart(data)
+        saveCart(data);
         let subTot = 0;
         let keys = Object.keys(data);
         // console.log(newCart)
         for (let i = 0; i < keys.length; i++) {
           subTot += data[keys[i]].price * data[keys[i]].qty
         }
+        
         setSubTotal(subTot)
       }
     }catch(error){
@@ -42,12 +43,28 @@ const [user,setUser] = React.useState<any>({value : null});
       //   Localuser = JSON.parse(Localuser);
       // }
       setUser({value: token})
-      setKeys(Math.random())
     }
-  },[router.query])
+  },[router.asPath])
 
   const saveCart = (newCart: any) => {
     localStorage.setItem("cart", JSON.stringify(newCart))
+    let user :any = localStorage.getItem("user");
+    if(user){
+      user = JSON.parse(user)
+      let carts = {
+        userId: user._id,
+        carts :newCart
+      }
+      fetch("/api/cart",{
+        method:"POST",
+        body: JSON.stringify(carts),
+        headers :{
+          "Content-Type":"Application/json"
+        }
+      }).then((res) => {
+        console.log(res)
+      })
+    }
     let subTot = 0;
     let keys = Object.keys(newCart);
     // console.log(newCart)
@@ -63,12 +80,14 @@ const [user,setUser] = React.useState<any>({value : null});
     // console.log(cart.includes(slug))
     if(slug in cart){
       // if (cart.includes(slug)) {
+        console.log(cart)
       newCart[slug].qty = cart[slug].qty + qty
     } else {
       
       // newCart[slug] = {qty : 1, title,price,size,varient}
       newCart[slug] = { ...cartItem, qty: 1 }
     }
+
     setCart(newCart)
     saveCart(newCart)
   }
@@ -100,8 +119,11 @@ const [user,setUser] = React.useState<any>({value : null});
     addToCart(cartItem)
   }
   const logout = () => {
-    localStorage.removeItem("token"); 
-    setKeys(Math.random())
+    
+    localStorage.removeItem("token");
+    setUser({value:null})
+    // console.log(user)
+    router.push("/")
     toast.success("Successfully Logout.", {
       position: "bottom-right",
       autoClose: 3000,
@@ -112,7 +134,6 @@ const [user,setUser] = React.useState<any>({value : null});
       progress: undefined,
       theme: "light",
     })
-    window.location.reload()
   }
   const renderLoading = () => {
     return(<>
@@ -125,11 +146,11 @@ const [user,setUser] = React.useState<any>({value : null});
 
     <>
     <NextProgress   delay={300} options={{ showSpinner: false }} />
-    <ToastContainer/>
     <Layout key={keys} logout={logout} user={user} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart}>
       <Container>
 
-      <Component user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
+      <Component key={router.asPath} user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
+    <ToastContainer/>
       </Container>
     </Layout>
   </>

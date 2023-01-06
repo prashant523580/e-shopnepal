@@ -23,22 +23,9 @@ export default function Layout(props:PropsTypes){
         }
   },[mainRef])
     return (<>
-        <style jsx>
-          {`
-            .fade-in{
-              animation: fade-in 1s ease; 
-            }
-            @keyframes fade-in{
-              from{
-                opacity:0;
-              }to{
-                opacity: 1;
-              }
-            }
-          `}
-        </style>
+       
 
-      <main ref={mainRef} className='flex flex-col h-[100vh] overflow-x-hidden' id='scroll'> 
+      <main ref={mainRef} className='flex flex-col overflow-x-hidden' id='scroll'> 
               
             {/* <section className="text-gray-600 body-font overflow-x-hidden"> */}
             <Navbar key={props.key} logout={props.logout} user={props.user} clearCart={props.clearCart} subTotal={props.subTotal} cart={props.cart} deleteFromCart={props.deleteFromCart} addToCart={props.addToCart}/>

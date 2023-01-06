@@ -1,7 +1,21 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { Component } from 'react'
 
 export default function Order(props: any) {
+  const router = useRouter()
+  React.useEffect(() => {
+
+    if(typeof window != "undefined"){
+  
+      
+      if (!(localStorage.getItem("token"))) {
+        router.push("/")
+        return
+      }
+    }
+  }, [])
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-14 mx-auto">

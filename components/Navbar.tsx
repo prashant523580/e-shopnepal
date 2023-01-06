@@ -58,13 +58,14 @@ export function DropdownMenu(props: any) {
           {props.childLink.map((link: any, ind: any) => {
             return (
               <li 
-               key={ind} onClick={() => {
+               key={ind} onClick={(e: any) => {
+                e.preventDefault()
                 if(link.onClick){
                   link.onClick && link.onClick()
                 }
               }}>
                 {link.path ? <Link className="cursor-pointer mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" href={link.path} >{link.label}</Link>
-          : <a className="cursor-pointer mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> {link.label}</a>  
+          : <span className="cursor-pointer mx-2 block py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> {link.label}</span>  
         }
               </li>
             )
@@ -281,7 +282,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                           </div>
                           <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                           <div className="mt-6 flex space-x-2  justify-center text-center">
-                            <Link href="/checkout" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
+                            <Link href="/checkout" onClick={this.toggleCart} className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</Link>
                             <button onClick={this.props.clearCart} type="button" className="font-medium bg-red-600 px-6 py-3 rounded-md text-white hover:text-white">
                               Clear
                             </button>

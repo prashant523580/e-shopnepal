@@ -11,19 +11,23 @@ export default function Pants(props:any) {
   const [loader,setLoader] = React.useState<boolean>(false);
   
   React.useEffect(() => {
+    // console.log(props.products)
      setTimeout(() => {
         setLoading(false)
      },500) 
      
-     if(props.products.products != null){
+     if(props.products != null){
      let prod : any = [];
-     Object.keys(props.products.products).map((key: any) => {
+     Object.keys(props.products).map((key: any) => {
       // console.log(props.products.products[key])
-      prod.push(props.products.products[key])
+      prod.push(props.products[key])
     })
     setProduct(prod)
   }
   },[])
+  React.useEffect(() => {
+    console.log(product)
+  },[product])
   const loadMoreData = () => {
     setLoader(true)
     setTimeout(() => {
@@ -93,10 +97,21 @@ export default function Pants(props:any) {
     let {DEV_URL,PROD_URL} = process.env;
   
     let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-    let products = await res.json();
+    let { products }= await res.json();
+    let pants = Object.keys(products).filter((key : any) => {
+      if(products[key].category == "pant"){
+        return products
+      }
+    })
+    .reduce((obj:any,key:any) => {
+      // console.log(key)
+        obj[key] = products[key]
+        return obj
+    },{})
+    // console.log(pants)
     return{
       props:{
-        products
+        products :pants
       }
     }
   }
