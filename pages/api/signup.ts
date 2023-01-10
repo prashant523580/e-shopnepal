@@ -17,7 +17,7 @@ const addUser = async (req:NextApiRequest,res:NextApiResponse) => {
         
         if(existedUser == null){
             let user = await db.collection("Users").insertOne({
-                name,email ,password : Cryptojs.AES.encrypt(password,"secretkey").toString()
+                name,email ,password : Cryptojs.AES.encrypt(password,process.env.NEXT_PUBLIC_AES_SECRET_KEY).toString()
             });
 
             // await user.save();

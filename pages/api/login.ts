@@ -9,12 +9,13 @@ const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
         let user = await db.collection("Users").findOne({email: email})
         // console.log(password == CryptoJs.AES.decrypt(user.password,"secretkey").toString(CryptoJs.enc.Utf8))
         if(user != undefined ){
-            if(password == CryptoJs.AES.decrypt(user.password,"secretkey").toString(CryptoJs.enc.Utf8)){
-                let token = jwt.sign({email,password,suc:true},"secretkeyjwt",)
+            if(password == CryptoJs.AES.decrypt(user.password,process.env.NEXT_PUBLIC_AES_SECRET_KEY).toString(CryptoJs.enc.Utf8)){
+                let token = jwt.sign({...user,suc:true},process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
+                let logeduser = jwt.decode(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY)
                 return res.status(200).json({
                      success : "Login Success",
                      token,
-                     user
+                     user : logeduser
                  });
 
             }else{

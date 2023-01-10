@@ -79,8 +79,8 @@ export default class Footer extends Component {
              
               <span className="ml-3 text-xl">E-ShopNepal</span>
             </a>
-            <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">© 2020 e-shopnepal —
-              <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank">@tripods</a>
+            <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4">© 2020 - {new Date().getFullYear()} e-shopnepal —
+              <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank">_</a>
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
               <a className="text-gray-500">

@@ -12,8 +12,7 @@ interface PropsTypes {
 export default function ProductCard({ title, category, slug, imgSrc, price, size }: PropsTypes) {
   return (
 
-    <Link href={slug} className="group transition-all   rounded-md px-2 py-2    hover:shadow-lg">
-         
+    <Link href={slug} className="group transition-all border  rounded-md px-2 py-2    hover:shadow-lg">       
         <div style={{
           position:"relative",
           height: 250,

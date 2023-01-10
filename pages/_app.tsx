@@ -36,35 +36,16 @@ const [user,setUser] = React.useState<any>({value : null});
       localStorage.clear()
     }
     let token = localStorage.getItem("token");
-    if(token){
-      // let Localuser : any = localStorage.getItem("user");
-
-      // if(Localuser){
-      //   Localuser = JSON.parse(Localuser);
-      // }
-      setUser({value: token})
+    let user : any = localStorage.getItem("user");
+    if(user){
+        user = JSON.parse(user);
+      setUser({value: user})
     }
   },[router.asPath])
 
   const saveCart = (newCart: any) => {
     localStorage.setItem("cart", JSON.stringify(newCart))
-    let user :any = localStorage.getItem("user");
-    if(user){
-      user = JSON.parse(user)
-      let carts = {
-        userId: user._id,
-        carts :newCart
-      }
-      fetch("/api/cart",{
-        method:"POST",
-        body: JSON.stringify(carts),
-        headers :{
-          "Content-Type":"Application/json"
-        }
-      }).then((res) => {
-        console.log(res)
-      })
-    }
+  
     let subTot = 0;
     let keys = Object.keys(newCart);
     // console.log(newCart)
@@ -121,6 +102,7 @@ const [user,setUser] = React.useState<any>({value : null});
   const logout = () => {
     
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser({value:null})
     // console.log(user)
     router.push("/")
@@ -147,10 +129,10 @@ const [user,setUser] = React.useState<any>({value : null});
     <>
     <NextProgress   delay={300} options={{ showSpinner: false }} />
     <Layout key={keys} logout={logout} user={user} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart}>
+    <ToastContainer/>
       <Container>
 
       <Component key={router.asPath} user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
-    <ToastContainer/>
       </Container>
     </Layout>
   </>

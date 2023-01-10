@@ -51,7 +51,8 @@ const submitForm = async (e: any) => {
       theme: "light",
       })
       setUser({email:"",name:"",password:""})
-      localStorage.setItem("user",JSON.stringify(data.user))
+      localStorage.setItem("user",JSON.stringify(data.user));
+      localStorage.setItem("token",JSON.stringify(data.token));
       router.push("/")
   }else{
 
