@@ -45,7 +45,7 @@ export default function Modal(props: any) {
                     {
                         order.products && Object.keys(order.products).map((key:any, ind:any) => {
                             return(
-                                <div className='border-b'>
+                                <div key={ind} className='border-b'>
                                     <h1>{order.products[key].title}</h1>
                                 </div>
                             )
@@ -55,7 +55,7 @@ export default function Modal(props: any) {
                         {
                            order.status && order.status.map((stat: any, ind: any, arr: any) => {
                                 return (
-                                    <li className={`progress-step ${stat.isComplete ? "is-complete " : " "}`}>
+                                    <li key={ind} className={`progress-step ${stat.isComplete ? "is-complete " : " "}`}>
                                         <div className="progress-marker before:bg-green-500 after:bg-green-200"></div>
                                         <div className="progress-text text-white">
                                             <h1 className='progress-title text-white'>{stat.type}</h1>
