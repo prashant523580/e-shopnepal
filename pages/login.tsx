@@ -36,7 +36,7 @@ export default function Login() {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
-        "Content-Type": "Application/json"
+        "Content-Type": "application/json"
       }
     })
     let data = await res.json()
@@ -80,7 +80,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min-h-full items-center justify-center px-4 sm:px-6 lg:px-4">
-        {/* <ToastContainer /> */}
+        <ToastContainer />
         <div className="w-full max-w-md space-y-8">
           <div>
             <Image width={100} height={100} className="mx-auto h-12 w-auto" src="/favicon.ico" alt="Your Company" />

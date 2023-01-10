@@ -47,17 +47,17 @@ export default function Order(props: any) {
       // console.log(data)
   }
   
-  React.useEffect(() => {
-    console.log(orders);
-    // orders.map((item:any) => {
-    //   console.log(item)
-    // })
-  },[orders])
+  // React.useEffect(() => {
+  //   console.log(orders);
+  //   // orders.map((item:any) => {
+  //   //   console.log(item)
+  //   // })
+  // },[orders])
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5  mx-auto">
         {
-          orders.length > 0 &&
+          orders.length > 0 ?
          orders.map((order:any,ind :number) => {
             return(
              
@@ -129,22 +129,13 @@ export default function Order(props: any) {
         </div>
          
          )
-      })
+      }) : <>
+            <div>No Orders</div>
+            </>
           }
       </div>
     </section>
   )
 }
 
-export async function  getServerSideProps(ctx:any){
-//  console.log({ctx})
-  // let {db} = await connectToDatabase();
-  // let orders : any = await db.collection("Orders").find({userId: user.userId});
-  // console.log(orders)
- 
-  return{
-    props:{
-        
-    }
-  }
-}
+

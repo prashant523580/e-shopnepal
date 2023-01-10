@@ -4,6 +4,7 @@ import React from 'react';
 import ProductCard from '../components/productCard'
 import { connectToDatabase } from '../lib/mongodb'
 
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Home(props:any) {
   
@@ -51,8 +52,9 @@ export default function Home(props:any) {
       width={100}
       height={100}
       sizes={"100vw"}
-      alt='banner' />  */}
+    alt='banner' />  */}
       <section className="text-gray-600 body-font">
+    <ToastContainer/>
      
       {/* <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"> */}
     <h2 className="text-center text-3xl font-bold py-4">Products For You</h2>

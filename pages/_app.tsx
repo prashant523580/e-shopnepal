@@ -129,8 +129,8 @@ const [user,setUser] = React.useState<any>({value : null});
     <>
     <NextProgress   delay={300} options={{ showSpinner: false }} />
     <Layout key={keys} logout={logout} user={user} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart}>
-    <ToastContainer/>
       <Container>
+    <ToastContainer/>
 
       <Component key={router.asPath} user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
       </Container>
