@@ -11,6 +11,7 @@ export default function Checkout(props: any) {
   const router = useRouter();
   const [confirmAddress, setConfirmAddress] = React.useState<boolean>(false);
   const [confirmOrder, setConfirmOrder] = React.useState<boolean>(false);
+  const [paymentMethod,setPaymentMethod] = React.useState<any>("COD");
   const [address, setAddress] = React.useState({
     fullname: "",
     email: "",
@@ -69,15 +70,17 @@ export default function Checkout(props: any) {
     }
   }
   const submitCOD = async () => {
-    let carts = {
+    let orders = {
       address,
       userId: props.user.value._id,
       products: props.cart,
-      amount: props.subTotal
+      amount: props.subTotal,
+      paymentMethod: paymentMethod,
+      
     }
     let res = await fetch("/api/order", {
       method: "POST",
-      body: JSON.stringify(carts),
+      body: JSON.stringify(orders),
       headers: {
         "Content-Type": "application/json"
       }

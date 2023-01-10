@@ -1,3 +1,5 @@
+@import "node_modules/progress-tracker/src/styles/progress-tracker.css";
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

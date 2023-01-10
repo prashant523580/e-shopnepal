@@ -1,11 +1,14 @@
 // import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { Component } from 'react'
+import Modal from '../components/Modal';
 // import { connectToDatabase } from '../lib/mongodb'
 
 export default function Order(props: any) {
   const router = useRouter()
-  const [orders, setOrders] = React.useState<any>([])
+  const [orders, setOrders] = React.useState<any>([]);
+  const [openModal,setOpenModal] = React.useState<any>(false);
+  const [currentOrder,setCurrentOrder] = React.useState<any>({});
   React.useEffect(  () => {
 
     if(typeof window != "undefined"){
@@ -53,19 +56,26 @@ export default function Order(props: any) {
   //   //   console.log(item)
   //   // })
   // },[orders])
+  const setModal = (product: any) => {
+    setOpenModal(true)
+    setCurrentOrder(product)
+    console.log(product)
+  }
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5  mx-auto">
         {
           orders.length > 0 ?
-         orders.map((order:any,ind :number) => {
+          orders.map((order:any,ind :number) => {
             return(
              
         <div key={ind} className="lg:w-4/5 mx-auto flex flex-wrap border-b border-t shadow-md px-5 mb-5">
-          <div className="lg:w-2/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">payment: status</h2>
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">paymentMethod: COD</h2>
-            <h1 className="text-gray-900 text-1xl lg:text-3xl title-font font-medium mb-4">Order Id: { order._id}</h1>
+          
+          
+          <div className="lg:w-2/2 w-full lg:pr-10 lg:py-6 py-4 mb-6 lg:mb-0">
+            <h2 className="text-sm title-font text-gray-600 tracking-widest">Payment Status : Pending</h2>
+            <h2 className="text-sm title-font text-gray-800 tracking-widest">Payment Method: COD</h2>
+            <h1 className="text-gray-900 text-1xl lg:text-3xl title-font mb-4">Order Id: <span className='title-font font-medium '> {order._id}</span></h1>
 
             {/* <p className="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam inxigo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p> */}
 
@@ -89,7 +99,7 @@ export default function Order(props: any) {
                 </thead>
                 <tbody>
                   {
-               
+                    
                     Object.keys(order.products).map((key, ind) => {
                       return (
 
@@ -119,9 +129,9 @@ export default function Order(props: any) {
 
 
 
-            <div className="flex mt-5">
-              <span className="title-font font-medium text-2xl text-gray-900">Total Paid :{order.amount}</span>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Track Order</button>
+            <div className="flex mt-5 items-center">
+              <span className="title-font font-medium text-1xl  text-gray-900">Total Paid :{order.amount}</span>
+              <button onClick={() => setModal(order)} className="flex ml-auto text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Track Order</button>
 
             </div>
           </div>
@@ -129,11 +139,15 @@ export default function Order(props: any) {
         </div>
          
          )
-      }) : <>
+        }) : <>
             <div>No Orders</div>
             </>
           }
+          <Modal order={ currentOrder && currentOrder} onClick={() => {setOpenModal(false)}} style={{}} show={openModal}/>
       </div>
+      
+
+
     </section>
   )
 }
