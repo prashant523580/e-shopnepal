@@ -241,9 +241,9 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                         <div className="ml-4 flex flex-1 flex-col">
                                           <div>
                                             <div className="flex justify-between text-base font-medium text-gray-900">
-                                              <h3>
-                                                <Link href={`/product/${this.props.cart[key].slug}`}>{this.props.cart[key].title}</Link>
-                                              </h3>
+                                             
+                                                <Link  href={`/product/${this.props.cart[key].slug}`}><h3 style={{width:"200px"}} className='truncate'>{this.props.cart[key].title}</h3></Link>
+                                            
                                               <p className="ml-4">Rs.{this.props.cart[key].price}</p>
                                             </div>
                                             <p className="mt-1 text-sm text-gray-500">{this.props.cart[key].category}</p>

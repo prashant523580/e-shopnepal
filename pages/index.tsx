@@ -5,6 +5,7 @@ import ProductCard from '../components/productCard'
 import { connectToDatabase } from '../lib/mongodb'
 
 import { ToastContainer, toast } from 'react-toastify';
+import Script from 'next/script';
 
 export default function Home(props:any) {
   
@@ -122,6 +123,9 @@ export default function Home(props:any) {
              onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
           }
   {/* </div> */}
+  <Script onLoad={() => {
+    console.log("hello")
+  }}></Script>
 </section>
     </>   
   )

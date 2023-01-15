@@ -12,7 +12,6 @@ interface PropsTypes {
     subTotal:any,
     user : any,
     logout: any,
-    key:any
 }
 export default function Layout(props:PropsTypes){
   const mainRef = React.useRef<any>();
@@ -28,7 +27,7 @@ export default function Layout(props:PropsTypes){
       <main ref={mainRef} className='flex flex-col overflow-x-hidden' id='scroll'> 
               
             {/* <section className="text-gray-600 body-font overflow-x-hidden"> */}
-            <Navbar key={props.key} logout={props.logout} user={props.user} clearCart={props.clearCart} subTotal={props.subTotal} cart={props.cart} deleteFromCart={props.deleteFromCart} addToCart={props.addToCart}/>
+            <Navbar  logout={props.logout} user={props.user} clearCart={props.clearCart} subTotal={props.subTotal} cart={props.cart} deleteFromCart={props.deleteFromCart} addToCart={props.addToCart}/>
 
                      {props.children}
               

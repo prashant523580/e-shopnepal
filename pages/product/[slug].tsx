@@ -63,17 +63,7 @@ export default function ProductSlug(props: any) {
     window.location.href = url
     // console.log(varients);
   } 
-  useEffect(() => {
-    console.log(props)
-    // console.log(Object.keys(varients).includes("black"))
-    // console.log( Object.keys(varients["black"]) )
-    // Object.keys(varients).map((item : any) => {
-    //   console.log(varients[item])
-    //   Object.keys(varients[item]).map((ite: any) => {
-    //     console.log(varients[item][ite].slug)
-    //   })
-    // })
-  },[])
+
   const notify = (str:string) => toast.success(str,{
     position: "bottom-right",
     autoClose: 3000,
@@ -84,16 +74,7 @@ export default function ProductSlug(props: any) {
     progress: undefined,
     theme: "light",
     });
-  const notifyWarn = (str:string) => toast.warn(str,{
-    position: "bottom-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-    });
+
   const notifyError = (str:string) => toast.error(str,{
     position: "bottom-right",
     autoClose: 3000,

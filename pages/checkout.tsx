@@ -23,6 +23,11 @@ export default function Checkout(props: any) {
     email: "",
     password: ""
   })
+  let dev = process.env.NODE_ENV !== "production";
+  let {DEV_URL,PROD_URL} = process.env;
+  if(dev){
+    console.log({DEV_URL, PROD_URL})
+  }
   const inputEvent = (e: any) => {
     let { name, value } = e.target;
     setAddress((pre: any) => {
@@ -38,7 +43,7 @@ export default function Checkout(props: any) {
       }
     })
     // console.log(user)
-    console.log(props.user.value._id)
+    // console.log(props.user.value._id)
   }
   const cartIncrement = (item: any) => {
     const { slug, qty, title, price, size, varient } = item;
@@ -52,12 +57,7 @@ export default function Checkout(props: any) {
   const submitOrder = async () => {
     setConfirmOrder(true)
   }
-  // const submitPayment =async (e) => {
-  //   e.preventDefault()
-  //     let res = await fetch("https://uat.esewa.com.np/epay/main");
-  //     let data = await res.json();
-  //     console.log(data)
-  // }
+
 
   const submitAddress = () => {
     // console.log(address)
@@ -91,9 +91,39 @@ export default function Checkout(props: any) {
       props.clearCart()
     }
   }
+var path= process.env.NEXT_PUBLIC_EPAY;
+var params= {
+    amt: 200,
+    psc: 0,
+    pdc: 0,
+    txAmt: 0,
+    tAmt: 200,
+    pid: process.env.NEXT_PUBLIC_PID,
+    scd: "EPAYTEST",
+    su: `${dev ? DEV_URL : PROD_URL}/esewa/success?q=su`,
+    fu: `${dev ? DEV_URL : PROD_URL}/esewa/failure?q=su`
+}
+
+function post(path : any, params : any) {
+  console.log(path ,params)
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+        form.appendChild(hiddenField);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 mx-auto flex flex-wrap flex-col">
+      <div className="container px-2 mx-auto flex flex-wrap flex-col">
         <CheckoutComponent
           icon={<ContactMailIcon />}
           step={<h1>Step 1: Delivery Address</h1>}
@@ -190,10 +220,10 @@ export default function Checkout(props: any) {
                   <div className="pointer-events-none  inset-y-0  flex max-w-full">
                     <div className="pointer-events-auto">
                       <div className="flex h-full flex-col overflow-y-auto ">
-                        <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+                        <div className="flex-1 overflow-y-auto py-6">
                           <div className="mt-8">
                             <div className="flow-root">
-                              <ul role="list" className="-my-6 divide-y divide-gray-200">
+                              <ul role="list" className="-my-6 divide-y divide-gray-200 flex flex-wrap justify-center">
 
                                 {
                                   Object.keys(props.cart).length == 0 &&
@@ -203,17 +233,17 @@ export default function Checkout(props: any) {
                                   Object.keys(props.cart).length > 0 &&
                                   Object.keys(props.cart).map((key, ind) => {
                                     return (
-                                      <li className="flex my-3 bg-white  shadow-xl py-3 px-2" key={ind}>
+                                      <li className="flex my-2 px-2 mx-0 lg:mx-2 bg-white  shadow-md py-3" key={ind}>
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                           <Image src={props.cart[key].imgSrc} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
 
-                                        <div className="ml-4 flex flex-1 flex-col">
+                                        <div className="ml-3 flex flex-1 flex-col">
                                           <div>
                                             <div className="flex justify-between text-base font-medium text-gray-900">
-                                              <h3>
-                                                <Link href={`/product/${props.cart[key].slug}`}>{props.cart[key].title}</Link>
-                                              </h3>
+                                            
+                                                <Link className='truncate' style={{width:"180px"}} href={`/product/${props.cart[key].slug}`}>{props.cart[key].title}</Link>
+                                              
                                               <p className="ml-4">Rs.{props.cart[key].price}</p>
                                             </div>
                                             <p className="mt-1 text-sm text-gray-500">{props.cart[key].category}</p>
@@ -251,12 +281,14 @@ export default function Checkout(props: any) {
               <div className='py-4'>
                 {/* <Link href="/orderComplete"> */}
                 <h1 className='text-3xl'>Sub Total :Rs {props.subTotal}</h1>
-                <Button onClick={submitOrder} className='bg-orange-500 text-white hover:bg-orange-600 font-bold'>Confirm </Button>
+                {
+                Object.keys(props.cart).length > 0 &&
+                   <Button onClick={submitOrder} className='bg-orange-500 text-white hover:bg-orange-600 font-bold'>Confirm </Button>
+                }
                 {/* </Link> */}
               </div></>
           }
         </CheckoutComponent>
-
         <CheckoutComponent
           icon={<ContactMailIcon />}
           step={<h1>Step 4: Payment Method:</h1>}
@@ -266,27 +298,31 @@ export default function Checkout(props: any) {
             confirmOrder &&
           <>
           <form action="https://uat.esewa.com.np/epay/main" method="POST">
-            <input value="100" name="tAmt" type="hidden" />
-            <input value="90" name="amt" type="hidden" />
-            <input value="5" name="txAmt" type="hidden" />
-            <input value="2" name="psc" type="hidden" />
-            <input value="3" name="pdc" type="hidden" />
-            <input value="EPAYTEST" name="scd" type="hidden" />
-            <input value={"ee2c3ca1-696b-4cc5-a6be-2c40d929d455"} name="pid" type="hidden" />
-            <input value="http://localhost:3000/esewa/success" type="hidden" name="su" />
-            <input value="http://localhost:3000/esewa/failure" type="hidden" name="fu" />
+          <input value={props.subTotal} name="tAmt" type="hidden"/>
+    <input value={props.subTotal} name="amt" type="hidden"/>
+    <input value="0" name="txAmt" type="hidden"/>
+    <input value="0" name="psc" type="hidden"/>
+    <input value="0" name="pdc" type="hidden"/>
+    <input value="EPAYTEST" name="scd" type="hidden"/>
+    <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d452" name="pid" type="hidden"/>
+    <input value={`http://localhost:3000/esewa/success?q=su`} type="hidden" name="su"/>
+    <input value={`http://localhost:3000/esewa/failure?q=fu`} type="hidden" name="fu"/>
             <button className='bg-white space-x-2 px-2 py-2 hover:shadow-lg rounded-lg flex justify-center items-center' type='submit'>
 
               <Image src={"/images/esewa.png"} alt="esewa" width={30} height={30} /> <span>E-Sewa</span>
             </button>
           </form>
+            {/* <button onClick={() => post(path,params)} className='bg-white space-x-2 px-2 py-2 hover:shadow-lg rounded-lg flex justify-center items-center' type='submit'>
+
+              <Image src={"/images/esewa.png"} alt="esewa" width={30} height={30} /> <span>E-Sewa</span>
+            </button> */}
           <Button onClick={submitCOD}>COD</Button>
           </>
         }
           {/* <form action="https://uat.esewa.com.np/epay/transrec" method="GET">
     <input value="100" name="amt" type="hidden"/>
     <input value="EPAYTEST" name="scd" type="hidden"/>
-    <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d455" name="pid" type="hidden"/>
+    <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d457" name="pid" type="hidden"/>
     <input value="000AE01" name="rid" type="hidden"/>
     <input value="check" type="submit"/>
     </form> */}

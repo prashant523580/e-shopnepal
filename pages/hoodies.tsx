@@ -24,7 +24,7 @@ export default function Hoodies(props:any) {
     })
     setProduct(prod)
   }
-  },[])
+  },[props.products])
   React.useEffect(() => {
     console.log(product)
   },[product])
