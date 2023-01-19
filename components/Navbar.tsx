@@ -185,7 +185,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                 },
                 {
                   label: "Orders ",
-                  path: "/order"
+                  path: "/orders"
                 },
                 {
                   label: "Logout",
@@ -206,7 +206,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                   <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
 
                     <div className="pointer-events-auto w-screen max-w-md">
-                      <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                      <div className="flex h-full flex-col  bg-white shadow-xl">
                         <div className="flex-1 overflow-y-auto ">
                           <div className="flex items-start justify-between sticky top-0 bg-gray-300 px-2 py-3">
                             <h2 className="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>

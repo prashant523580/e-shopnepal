@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ToastContainer } from "react-toastify";
 
 class MyDocument extends Document {
   render() {
@@ -10,6 +11,8 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#fff" />
         </Head>
         <body>
+          
+      <ToastContainer/>
           <Main />
           <NextScript  />
           

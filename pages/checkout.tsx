@@ -7,6 +7,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+import { ToastContainer, toast } from 'react-toastify';
 export default function Checkout(props: any) {
   const router = useRouter();
   const [confirmAddress, setConfirmAddress] = React.useState<boolean>(false);
@@ -76,6 +78,7 @@ export default function Checkout(props: any) {
       products: props.cart,
       amount: props.subTotal,
       paymentMethod: paymentMethod,
+      orderId: Math.floor(Math.random() * Date.now())
       
     }
     let res = await fetch("/api/order", {
@@ -85,10 +88,32 @@ export default function Checkout(props: any) {
         "Content-Type": "application/json"
       }
     })
-    if (res.status == 201) {
-
+    let data = await res.json();
+    if (data.success) {
+      toast.success(data.successs, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
       router.push("/orderComplete")
       props.clearCart()
+    }else if(data.error){
+      // props.clearCart()
+      toast.error(data.error, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
     }
   }
 var path= process.env.NEXT_PUBLIC_EPAY;
@@ -121,8 +146,50 @@ function post(path : any, params : any) {
     document.body.appendChild(form);
     form.submit();
 }
+const loggedIn = async () => {
+    // e.preventDefault()
+    console.log(user)
+    let res = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    let data = await res.json()
+    if (data.success) {
+      toast.success(data.success, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      setUser({ email: "", password: "" })
+      window.location.reload();
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", JSON.stringify(data.token));
+    } else {
+      toast.error(data.error, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      setUser({ email: "", password: "" })
+    }
+
+}
   return (
     <section className="text-gray-600 body-font">
+      <ToastContainer/>
       <div className="container px-2 mx-auto flex flex-wrap flex-col">
         <CheckoutComponent
           icon={<ContactMailIcon />}
@@ -143,7 +210,7 @@ function post(path : any, params : any) {
                     <input value={user.email} onChange={inputEvent} name='email' className="mb-5 rounded-[4px] border p-3 hover:outline-none focus:outline-none hover:border-yellow-500 " type="text" placeholder="Username or Email id" />
                     <input onChange={inputEvent} name='password' className="border rounded-[4px] p-3 hover:outline-none focus:outline-none hover:border-yellow-500" type="password" placeholder="Password" />
                   </div>
-                  <button className="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Sign in</button>
+                  <button onClick={loggedIn} className="mt-5 w-full border p-2 bg-gradient-to-r from-gray-800 bg-gray-500 text-white rounded-[4px] hover:bg-slate-400 scale-105 duration-300" type="submit">Sign in</button>
                   {/* <div className="mt-5 flex justify-between text-sm text-gray-600">
                     <a href="#">Forgot password?</a>
                     <a href="#">Sign up</a>
@@ -198,12 +265,16 @@ function post(path : any, params : any) {
               <label htmlFor="Address" className="leading-7 text-sm text-gray-600">street</label>
               <input onChange={inputEvent} value={address.street} type="text" id="Address" name="street" className="w-full bg-white rounded border-b border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
             </div>
-            <div className="relative mb-4 ml-2">
+            {/* <div className="relative mb-4 ml-2">
               <label htmlFor="code" className="leading-7 text-sm text-gray-600">code</label>
               <input type="number" id="code" name="code" className="w-full bg-white rounded border-b border-gray-300 focus:border-gray-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-            </div>
+            </div> */}
           </div>
-          <Button onClick={submitAddress} className='bg-gray-500 text-white hover:bg-slate-600'>Submit</Button>
+          <Button onClick={submitAddress} style={{
+            background:"gray",
+            color:"white",
+            marginBottom: "10px"
+          }} className='bg-gray-500 text-white hover:bg-slate-600'>Submit</Button>
 
           </>
         }

@@ -54,8 +54,8 @@ export default function Home(props:any) {
       height={100}
       sizes={"100vw"}
     alt='banner' />  */}
-      <section className="text-gray-600 body-font">
     <ToastContainer/>
+      <section className="text-gray-600 body-font">
      
       {/* <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"> */}
     <h2 className="text-center text-3xl font-bold py-4">Products For You</h2>
@@ -123,9 +123,7 @@ export default function Home(props:any) {
              onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
           }
   {/* </div> */}
-  <Script onLoad={() => {
-    console.log("hello")
-  }}></Script>
+
 </section>
     </>   
   )

@@ -32,11 +32,11 @@ export default function Modal(props: any) {
             onClick={onClick}
             style={{
                 // zIndex: 1,
-                background : "rgba(0,0,0,0.1)"
-            }} className={`fixed transition-all shadow-sm top-0  left-0 w-full h-full ${props.show ? "  translate-y-0 " : ' -translate-y-full flex items-center justify-center flex-col'}  `}>
+                background : "rgba(0,0,0,0.8)"
+            }} className={`fixed transition-all shadow-sm top-0  left-0 w-full h-full ${props.show ? "  translate-y-0 " : ' -translate-y-[110%] flex items-center justify-center flex-col'}  `}>
 
-            <div className={`px-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] py-2 bg-gray-700 text-white`}>
-                <div className="flex justify-between">
+            <div className={` absolute w-2/2 lg:w-1/2  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] py-2 bg-gray-700 text-white`}>
+                <div className="flex justify-between px-4">
 
                     <h1> Order Id :{ order._id && order._id}</h1>
                     <div onClick={props.onClick}>close</div>
@@ -55,7 +55,7 @@ export default function Modal(props: any) {
                         {
                            order.status && order.status.map((stat: any, ind: any, arr: any) => {
                                 return (
-                                    <li key={ind} className={`progress-step ${stat.isComplete ? "is-complete " : " "}`}>
+                                    <li key={ind} className={`progress-step ${stat.isCompleted ? "is-complete " : " "}`}>
                                         <div className="progress-marker before:bg-green-500 after:bg-green-200"></div>
                                         <div className="progress-text text-white">
                                             <h1 className='progress-title text-white'>{stat.type}</h1>

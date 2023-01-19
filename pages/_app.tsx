@@ -62,7 +62,7 @@ const [user,setUser] = React.useState<any>({value : null});
     // console.log(cart.includes(slug))
     if(slug in cart){
       // if (cart.includes(slug)) {
-        console.log(cart)
+        // console.log(cart)
       newCart[slug].qty = cart[slug].qty + qty
     } else {
       
@@ -94,11 +94,13 @@ const [user,setUser] = React.useState<any>({value : null});
   }
  
   const buyNow = (cartItem: any) => {
-    // console.log(cartItem)
-    cartItem.qty = 1
-    saveCart({})
-    // localStorage.clear();
-    addToCart(cartItem)
+    console.log(cartItem)
+    cartItem.qty = 1;
+    clearCart();
+    // saveCart({})
+    // localStorage.removeItem("cart");
+    addToCart(cartItem);
+    router.push("/checkout")
   }
   const logout = () => {
     
@@ -133,7 +135,7 @@ const [user,setUser] = React.useState<any>({value : null});
       <Container>
 
       <Component key={router.asPath} user={user} buyNow={buyNow} cart={cart && cart} addToCart={addToCart} subTotal={subTotal} clearCart={clearCart} deleteFromCart={deleteFromCart} {...pageProps} />
-    <ToastContainer/>
+
       </Container>
     </Layout>
   </>

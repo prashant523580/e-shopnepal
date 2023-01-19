@@ -105,7 +105,7 @@ export default function ProductSlug(props: any) {
                   <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
                   <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
               </div>
-              <span className="sr-only">Loading...</span>
+              {/* <span className="sr-only">Loading...</span> */}
           </div>
           :
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -125,9 +125,9 @@ export default function ProductSlug(props: any) {
             priority
             />
          
-          <div className="lg:w-1/2 w-full lg:pl-5 lg:py-6 mt-3 lg:mt-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME <span className='text-1xl text-gray-400'> {product.brand}</span> </h2>
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title}</h1>
+          <div className="lg:w-1/2 w-full lg:pl-5 lg:py-4 mt-3 lg:mt-0">
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME : <span className='text-2xl font-semibold capitalize text-gray-800'> {product.brand}</span> </h2>
+            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1 ">{product.title} <span className='uppercase'>({color}/{size}) </span></h1>
             {/* <div className="flex mb-4">
               <span className="flex items-center">
                 <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
@@ -209,12 +209,11 @@ export default function ProductSlug(props: any) {
             <div className="flex justify-between flex-wrap">
               <span className="title-font font-medium text-2xl text-gray-900">Rs.{product.price}</span>
               <div className="flex justify-end items-center space-x-2">
-                  <Button onClick={() => props.buyNow(product)} className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded font-bold capitalize">
-                <Link href={"/checkout"}>
+            
+                <Button onClick={() => props.buyNow(product)}  className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded font-bold capitalize">
 
                     Buy
-                </Link>
-                    </Button>
+                </Button>
                 <Button
                   onClick={addCart}
                   className="flex ml-auto text-white bg-slate-600 border-0 py-2 px-6 focus:outline-none hover:bg-slate-800 rounded font-bold capitalize">Add To Cart</Button>
@@ -225,12 +224,12 @@ export default function ProductSlug(props: any) {
                 </Button>
               </div>
             </div>
-            <div className="pin mt-2 space-x-2 p-2 rounded-sm flex items-center justify-start">
+            {/* <div className="pin mt-2 space-x-2 p-2 rounded-sm flex items-center justify-start">
               <input value={pin} onChange={(e) => setPin(parseInt(e.target.value))} placeholder='pincode' type="number" className=' bg-gray-300  p-2 w-[25vw] outline-none rounded-sm' />
               <Button onClick={checkServiceAbility} className='text-white hover:bg-slate-700 bg-slate-600 w-max-[30vw]'>{checkMessage}</Button>
 
-              {/* {
-                // checkMessage === "Verified" || checkMessage === "Unverified" &&
+              {
+                checkMessage === "Verified" || checkMessage === "Unverified" &&
                 !isVerified && pin != null &&
                 <span className={"bg-red-600 w-8 h-8 rounded-full text-center flex justify-center text-white items-center"}> <HighlightOffIcon /> </span>
               }
@@ -238,8 +237,8 @@ export default function ProductSlug(props: any) {
                 isVerified && pin != null &&
 
                 <span className={"bg-green-600 w-8 h-8 rounded-full text-center flex justify-center text-white items-center"}><CheckIcon /> </span>
-              } */}
-            </div>
+              }
+            </div> */}
 
           </div>
         </div>
