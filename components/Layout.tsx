@@ -20,7 +20,7 @@ export default function Layout(props:PropsTypes){
 
           mainRef.current.scrollIntoView({behavior:"smooth"})
         }
-  },[mainRef])
+  },[mainRef.current])
     return (<>
        
 

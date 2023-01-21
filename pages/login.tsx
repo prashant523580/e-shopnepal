@@ -7,6 +7,8 @@ import React, { Component } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Container from '../components/Container';
+import FacebookLogin from 'react-facebook-login';
+// import TiSocialFacebookCircular from 'react-icons/lib/ti/social-facebook-circular';
 
 export default function Login() {
   const [user, setUser] = React.useState<any>({
@@ -70,7 +72,24 @@ export default function Login() {
     }
 
   }
+  const responseFacebook = async (response : any) =>{
+    console.log(response);
+    let res = await fetch("/api/loginwithfb",{
+      method:"POST",
+      body:JSON.stringify(response),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    });
+    let data = await res.json();
+    if(data.success){
+      
+      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", JSON.stringify(data.token));
+      router.push("/")
+    }
 
+  }
   return (
     <Container>
       <Head>
@@ -126,6 +145,15 @@ export default function Login() {
               </Button>
             </div>
           </form>
+          <div>Or</div>
+          <FacebookLogin
+            appId={process.env.NEXT_PUBLIC_FB_CLIENT_ID}
+            autoLoad={false}
+            fields="name,email,picture"
+            callback={responseFacebook}
+            cssClass="my-facebook-button-class"
+            // icon={<TiSocialFacebookCircular />}
+          />
         </div>
       </div>
 

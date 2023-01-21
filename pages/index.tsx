@@ -153,6 +153,10 @@ export const  getServerSideProps = async () => {
                 if(item.availableQuantity > 0){
                     tshirts[item.title].size = [item.size];
                     tshirts[item.title].color = [item.color]
+                  }else{
+                  tshirts[item.title].size = [];
+                  tshirts[item.title].color = []
+
                 }
             }
 

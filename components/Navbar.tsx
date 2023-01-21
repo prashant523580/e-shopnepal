@@ -152,7 +152,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
     return (
       <>
 
-        <nav ref={this.state.navLinkRef} className={styles.nav + " sticky top-0"}>
+        <nav ref={this.state.navLinkRef} className={styles.nav + " sticky top-0 bg-gray-800"}>
           <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
           <div className={styles.nav_link} style={{
             right: this.state.openDrawer ? "0" : "-65%"

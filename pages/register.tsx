@@ -51,9 +51,9 @@ export default function Register() {
         theme: "light",
       })
       setUser({ email: "", name: "", password: "" })
-      localStorage.setItem("user", JSON.stringify(data.user));
-      localStorage.setItem("token", JSON.stringify(data.token));
-      router.push("/")
+      // localStorage.setItem("user", JSON.stringify(data.user));
+      // localStorage.setItem("token", JSON.stringify(data.token));
+      router.push("/login")
     } else {
 
       toast.error(data.error, {

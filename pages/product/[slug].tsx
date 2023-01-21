@@ -207,17 +207,33 @@ export default function ProductSlug(props: any) {
               </div>
             </div>
             <div className="flex justify-between flex-wrap">
-              <span className="title-font font-medium text-2xl text-gray-900">Rs.{product.price}</span>
+              {
+                product.availableQuantity <= 0 ?
+
+                <span className="title-font font-medium text-2xl text-gray-900">Out Of Stock.</span>
+                :<span className="title-font font-medium text-2xl text-gray-900">Rs.{product.price}</span>
+              }
               <div className="flex justify-end items-center space-x-2">
             
-                <Button onClick={() => props.buyNow(product)}  className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded font-bold capitalize">
+                <Button style={{
+                  background:"orange",
+                  color:"white"
+                }} disabled={ product.availableQuantity <= 0} onClick={() => props.buyNow(product)}  className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded font-bold capitalize">
 
                     Buy
                 </Button>
                 <Button
+                style={{
+                  background:"gray",
+                  color:"white"
+                }}
+                disabled={ product.availableQuantity <= 0}
                   onClick={addCart}
-                  className="flex ml-auto text-white bg-slate-600 border-0 py-2 px-6 focus:outline-none hover:bg-slate-800 rounded font-bold capitalize">Add To Cart</Button>
-                <Button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                  className="flex ml-auto disabled:text-white text-white bg-slate-600 border-0 py-2 px-6 focus:outline-none hover:bg-slate-800 rounded font-bold capitalize">Add To Cart</Button>
+                <Button style={{
+                  background:"red",
+                  color:"white"
+                }} className="rounded-full disabled:text-white w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                   </svg>

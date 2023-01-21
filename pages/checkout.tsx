@@ -74,13 +74,14 @@ export default function Checkout(props: any) {
   const submitCOD = async () => {
     let orders = {
       address,
-      userId: props.user.value._id,
+      userID: props.user.value.userID,
       products: props.cart,
       amount: props.subTotal,
       paymentMethod: paymentMethod,
       orderId: Math.floor(Math.random() * Date.now())
       
     }
+    console.log(orders)
     let res = await fetch("/api/order", {
       method: "POST",
       body: JSON.stringify(orders),

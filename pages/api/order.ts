@@ -20,7 +20,7 @@ const addOrder = async (req:NextApiRequest,res:NextApiResponse) => {
 
     try{
         let {db} = await connectToDatabase();
-        let {userId,products,address,amount,orderId} = req.body;
+        let {userID,products,address,amount,orderId} = req.body;
         // console.log(req.body)
         // console.log(userId,products,address,amount)
 
@@ -69,7 +69,7 @@ const addOrder = async (req:NextApiRequest,res:NextApiResponse) => {
                     error: 'The price of some items in your cart have changed. Please try again.',
                 })
             }
-            await db.collection("Orders").insertOne({userId,orderId,orderStatus:"pending",products,address,amount,status,paymentStatus: "pending",paymentMethod:"COD"});
+            await db.collection("Orders").insertOne({userID,orderId,orderStatus:"pending",products,address,amount,status,paymentStatus: "pending",paymentMethod:"COD"});
             for(let key in products){
                 console.log(key)
                 //   let prod =  await db.collection("Products").fineOneAndUpdate({slug:key} , {$inc :{availableQuantity : -products[key].qty}}).toArray();
@@ -90,10 +90,10 @@ const getOrders = async(req:NextApiRequest,res:NextApiResponse) => {
     try{
         let token = req.headers.authorization;
         // console.log(token)
-        let decoded = jwt.decode(token,"secretkey");
+        let decoded = jwt.decode(token,process.env.NEXT_PUBLIC_JWT_SECRET_KEY);
         let {db} = await connectToDatabase();
-        // console.log(decoded._id)
-        let orders = await db.collection("Orders").find({userId: decoded._id}).toArray();
+        console.log(decoded.userID)
+        let orders = await db.collection("Orders").find({userID: decoded.userID.toString()}).toArray();
         // console.log(orders)
         res.status(200).json({
             orders
