@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Container from '../components/Container';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 // import TiSocialFacebookCircular from 'react-icons/lib/ti/social-facebook-circular';
 
 export default function Login() {
@@ -145,15 +145,15 @@ export default function Login() {
               </Button>
             </div>
           </form>
-          <div>Or</div>
-          <FacebookLogin
+          {/* <div>Or</div> */}
+          {/* <FacebookLogin
             appId={process.env.NEXT_PUBLIC_FB_CLIENT_ID}
             autoLoad={false}
             fields="name,email,picture"
             callback={responseFacebook}
             cssClass="my-facebook-button-class"
             // icon={<TiSocialFacebookCircular />}
-          />
+          /> */}
         </div>
       </div>
 
