@@ -1,10 +1,11 @@
 import { Button } from '@mui/material'
+import { useRouter } from 'next/router'
 import React, { Component } from 'react'
 
-export default class Footer extends Component {
-  render() {
+export default function Footer(){
+const router = useRouter();
     return (
-        <footer className="text-gray-400 bg-gray-700 body-font mt-auto">
+        <footer className={"text-gray-400 bg-gray-700 body-font mt-auto" +  ` ${router.pathname.slice(0,6) === "/admin" ? " hidden " : " block " } `}>
         <div className="container px-5 py-4 mx-auto">
           <div className="flex flex-wrap md:text-left text-center order-first">
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
@@ -110,5 +111,4 @@ export default class Footer extends Component {
         </div>
       </footer>
     )
-  }
 }

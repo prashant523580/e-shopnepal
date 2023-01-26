@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface PropsTypes {
   openDrawer: boolean
@@ -26,6 +27,7 @@ interface PropsTypes {
 export function DropdownMenu(props: any) {
   const [dropdown, setDropDown] = useState<boolean>(false);
   const dropdownRef = React.useRef<any>();
+
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("click", (e) => {
@@ -47,13 +49,14 @@ export function DropdownMenu(props: any) {
         transform: dropdown ? "rotate(-180deg)" : "rotate(0)"
       }} aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></Button>
       {/* <!-- Dropdown menu --> */}
-      <div className="relative bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+      <div className={`relative bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 `}>
         <ul style={{
           top: dropdown ? 0 : "-80px",
           transform: dropdown ? "scale(1) translateX(-50px)" : "scale(0) translateX(0)",
           // height: dropdown ? "0vh" : "auto",
           borderRadius: dropdown ? ".4em" : "50%",
-          left: typeof window !== "undefined" && window.innerWidth > 600 ? -20 : -40
+          left: typeof window !== "undefined" && window.innerWidth > 600 ? -20 : -40,
+          zIndex:999999999
         }} className="animate absolute shadow-xl z-50 w-40 mr-5 bg-white py-2 text-sm text-gray-700 dark:text-gray-200">
           {props.childLink.map((link: any, ind: any) => {
             return (
@@ -114,13 +117,13 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
     this.props.addToCart(incrementCartQuantity)
   }
   toggleCart = () => {
-    if (this.state.cartConRef.current.classList.contains("translate-x-full")) {
-      this.state.cartConRef.current.classList.remove("translate-x-full");
-      this.state.cartConRef.current.classList.add("translate-x-0");
+    if (this.state.cartConRef.current.classNameList.contains("translate-x-full")) {
+      this.state.cartConRef.current.classNameList.remove("translate-x-full");
+      this.state.cartConRef.current.classNameList.add("translate-x-0");
     }
-    else if (!this.state.cartConRef.current.classList.contains("translate-x-full")) {
-      this.state.cartConRef.current.classList.remove("translate-x-0");
-      this.state.cartConRef.current.classList.add("translate-x-full");
+    else if (!this.state.cartConRef.current.classNameList.contains("translate-x-full")) {
+      this.state.cartConRef.current.classNameList.remove("translate-x-0");
+      this.state.cartConRef.current.classNameList.add("translate-x-full");
 
 
     }
@@ -151,8 +154,22 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
 
     return (
       <>
+        <header className={`bg-gray-800 text-white space-x-6 flex-wrap justify-around items-center py-10 ` + ` ${this.props.router.pathname.slice(0,6) === "/admin" ? " hidden opacity-0 -z-100" : " flex opacity-100 z-10" } `}>
+        <div className="flex md:flex-nowrap flex-wrap justify-center items-end md:justify-start">
+        <div className="relative sm:w-64 w-40 space-y-5 sm:mr-4 mr-2">
+          {/* <label htmlFor="footer-field" className="leading-7 text-sm text-gray-600">Placeholder</label> */}
+          <input type="text" id="footer-field" placeholder='search for products' name="search" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:bg-transparent focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+        </div>
+        <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+       
+      </div>
+          <div className='flex items-center'>
 
-        <nav ref={this.state.navLinkRef} className={styles.nav + " sticky top-0 bg-gray-800"}>
+          <Link href="/admin" className='border-b'>Become a Seller</Link>
+        
+            </div>
+        </header>
+        <nav ref={this.state.navLinkRef} className={` ${this.props.router.pathname.slice(0,6) === "/admin" ? " hidden " : " flex  " } `+ styles.nav + " sticky top-0 bg-gray-800" }>
           <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
           <div className={styles.nav_link} style={{
             right: this.state.openDrawer ? "0" : "-65%"
@@ -171,9 +188,11 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
             }
           </div>
           <div className='flex items-center justify-end' >
+        
+           
           <DropdownMenu icon={<AccountCircleIcon />}
               childLink={this.props.user.value == null ? [
-
+                
                 {
                   label: "login",
                   path: "/login"
@@ -193,7 +212,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                 },
               ]}
             />
-            <Button style={{
+             <Button style={{
               color:"inherit",
               background: "inherit"
             }} onClick={this.toggleCart} ref={this.state.cartRef}><ShoppingCartIcon /> {Object.keys(this.props.cart).length}</Button>
@@ -294,8 +313,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                 </div>
               </div>
 
-            </div>
-
+                                </div>
             
             <div className={styles.menu}>
               <Button aria-label={"menu"} onClick={() => this.setState({ openDrawer: !this.state.openDrawer })}> <MenuIcon /></Button>

@@ -54,17 +54,17 @@ const addProducts = async  (req:NextApiRequest,res:NextApiResponse) => {
     try{
 
         let {db} = await connectToDatabase();
-        // console.log(req.body)
+        console.log(req.body)
          await db.collection("Products").insertOne({
             title:req.body.title,
             imgSrc:req.body.imgSrc,
             slug:slugify(req.body.title + " "+ req.body.size + " "+req.body.color),
             category: req.body.category,
-            desc: req.body.desc,
-            price: req.body.price,
+            description: req.body.description,
+            price: Number(req.body.price),
             size: req.body.size,
             color: req.body.color,
-            availableQuantity: req.body.availableQuantity,
+            availableQuantity: Number(req.body.availableQuantity),
             brand : req.body.brand
          })
         // await addedProduct.save();
@@ -87,10 +87,10 @@ const updateProduct =  async (req:NextApiRequest,res:NextApiResponse) => {
             "title": req.body.title,
              "imgSrc":req.body.imgSrc,
              "slug":req.body.slug,
-             "desc":req.body.desc,
+             "description":req.body.description,
              "category": req.body.category,
-             "price":req.body.price,
-             "aviableQuantity": req.body.aviableQuantity,
+             "price":Number(req.body.price),
+             "aviableQuantity": Number(req.body.aviableQuantity),
              "size":req.body.size,
              "color": req.body.color
          }
@@ -103,4 +103,5 @@ const updateProduct =  async (req:NextApiRequest,res:NextApiResponse) => {
         return res.status(422).json(error)
     }
 }
+
 export default handler;
