@@ -20,7 +20,7 @@ export default function OrderComplete() {
 
     }
 
-  }, [router.query])
+  }, [router])
   const getOrder = async (token: any) => {
     console.log(token)
     let res = await fetch("/api/order",{

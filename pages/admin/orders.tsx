@@ -25,50 +25,16 @@ interface OrderTypes {
   userID?: any,
   address?: any
 }
-export default function orders({orders} : any) {
+export default function Orders({orders} : any) {
   
   const [numb,setNumb] = React.useState<number>(4);
-  
   const [loader,setLoader] = React.useState<boolean>(false);
-  const [rows,setRows] = React.useState<any>([]);
   const loadMoreData = () => {
     setLoader(true)
     setTimeout(() => {
       setLoader(false);
       setNumb(numb + 4)
    },500) 
-  }
-  React.useEffect(() => {
-    console.log(orders);
-    orders.map((order : any) => {
-     console.log(order._id)
-    })
-    console.log(typeof orders)
-    console.log(typeof orders[0].address)
-  },[])
-  React.useEffect(() => {
-    console.log(rows)
-  },[rows])
-  function createData(
-   
-    date: string,
-    name: string,
-    shipTo: string,
-    paymentMethod: string,
-    amount: number,
-    paymentStatus?:string,
-    status?: any,
-    orderStatus?: string,
-    orderId?: any,
-    userID?: any
-  ) {
-    return { date, name, shipTo, paymentMethod, amount };
-  }
-  
- 
-  // console.log(rows)
-  function preventDefault(event: React.MouseEvent) {
-    event.preventDefault();
   }
   return (
     <ThemeProvider theme={theme}>

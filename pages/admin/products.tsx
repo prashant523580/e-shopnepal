@@ -46,9 +46,7 @@ export default function Products({products}:any) {
       setNumb(numb + 8)
    },500) 
   }
-  React.useEffect(() => {
-      console.log(products)
-  },[])
+
 
   const deleteProduct = async (_id : any) => {
     console.log(_id)
@@ -66,7 +64,7 @@ export default function Products({products}:any) {
     }
   }
   const handleProductModal = (product : any) => {
-    console.log(product)
+    
     setProduct(product)
     // handleOpen()
     

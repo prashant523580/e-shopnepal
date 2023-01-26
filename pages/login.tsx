@@ -21,7 +21,7 @@ export default function Login() {
     if (localStorage.getItem("token")) {
       router.push("/")
     }
-  }, [router.query])
+  }, [router])
   const inputEvent = (e: any) => {
     let { name, value } = e.target;
     setUser((pre: any) => {
