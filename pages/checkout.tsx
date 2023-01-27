@@ -306,18 +306,18 @@ const loggedIn = async () => {
                                   Object.keys(props.cart).length > 0 &&
                                   Object.keys(props.cart).map((key, ind) => {
                                     return (
-                                      <li className="flex my-2 px-2 mx-0 lg:mx-2 bg-white  shadow-md py-3" key={ind}>
+                                      <li className="flex my-2  mx-0  bg-white  shadow-md py-3" key={ind}>
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                           <Image src={generateImgUrl(props.cart[key].imgSrc)} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
 
-                                        <div className="ml-3 flex flex-1 flex-col">
+                                        <div className=" flex flex-1 flex-col">
                                           <div>
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                             
                                                 <Link className='truncate' style={{width:"180px"}} href={`/product/${props.cart[key].slug}`}>{props.cart[key].title}</Link>
                                               
-                                              <p className="ml-4">Rs.{props.cart[key].price}</p>
+                                              <p className="pl-2">Rs.{props.cart[key].price}</p>
                                             </div>
                                             <p className="mt-1 text-sm text-gray-500">{props.cart[key].category}</p>
                                           </div>
