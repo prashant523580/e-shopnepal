@@ -15,7 +15,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select,{SelectChangeEvent} from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import { json } from "stream/consumers";
+import axios from "axios";
 export default function AddProducts() {
   const [image, setImage] = React.useState<any>('');
   const [newProduct, setNewProduct] = React.useState<ProductTypes>({
@@ -30,7 +30,6 @@ title: ""
   });
   // const [size, setSize] = React.useState('');
   const handleImage = (e: any) => {
-    console.log(e.target.files[0])
     setImage(e.target.files[0])
   }
   const inputEvent = (e: any) => {
@@ -44,31 +43,25 @@ title: ""
     })
   }
   const addProduct = async () => {
-    let form = new FormData();
-    form.append("title", newProduct.title)
-    form.append("availableQuantity", newProduct.availableQuantity)
-    form.append("brand", newProduct.brand)
-    form.append("category", newProduct.category)
-    form.append("color", newProduct.color)
-    form.append("size", newProduct.size)
-    form.append("description", newProduct.description)
-    form.append("price", newProduct.price)
-    form.append("imgSrc", image)
-    console.log(form)
+    let formData = new FormData();
+    formData.append("title", newProduct.title)
+    formData.append("availableQuantity", newProduct.availableQuantity)
+    formData.append("brand", newProduct.brand)
+    formData.append("category", newProduct.category)
+    formData.append("color", newProduct.color)
+    formData.append("size", newProduct.size)
+    formData.append("description", newProduct.description)
+    formData.append("price", newProduct.price)
+    formData.append("imgSrc", image)
+    console.log(formData)
 
-    let productData = {
-      imgSrc : image.name,
-      ...newProduct
-    }
-    let res = await fetch("/api/products",{
-      method:"POST",
-      body: JSON.stringify(productData),
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
-    let data = await res.json();
-    console.log(data)
+    // let productData = {
+    //   imgSrc : image,
+    //   ...newProduct
+    // }
+    let res = await axios.post("/api/products", formData)
+    // let data = await res.json();
+    console.log(res)
   }
   // const handleChange = (event: SelectChangeEvent) => {
   //   // setSize(event.target.value as string);
@@ -167,6 +160,7 @@ title: ""
               name="price"
               label="Price"
               fullWidth
+              autoComplete="price"
               variant="standard"
             />
           </Grid>
@@ -203,6 +197,7 @@ title: ""
               id="image"
               name="image"
               type="file"
+              // accept="image/png, image/gif, image/jpeg"
               onChange={handleImage}
               fullWidth
             // multiline

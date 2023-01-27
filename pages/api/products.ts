@@ -2,7 +2,15 @@ import type { NextApiRequest, NextApiResponse} from 'next';
 import slugify from 'slugify';
 const ObjectId = require("mongodb").ObjectId
 import {connectToDatabase} from "../../lib/mongodb";
+import formidable from "formidable";
+import IncomingForm from 'formidable/Formidable';
+import path from 'path';
+export const config = {
+    api:{
 
+        bodyParser :false
+    }
+}
 const handler =  async(req:NextApiRequest,res:NextApiResponse<any>) => {
  
     switch(req.method){
@@ -51,26 +59,70 @@ const getProducts = async (req:NextApiRequest,res:NextApiResponse) => {
     }
 }
 const addProducts = async  (req:NextApiRequest,res:NextApiResponse) => {
+    const readFiles = async (req :NextApiRequest, saveLocally : boolean) : Promise<{fields:formidable.Fields,files: formidable.Files}> => {
+        const options : formidable.Options = {}
+        if(saveLocally){
+            options.uploadDir = path.join(process.cwd(),"/public/images")
+            options.filename = (name,ext,path,form) => {
+                return Date.now().toString() + "_" + path.originalFilename;
+            }
+        }
+        const form = await formidable(options);
+        return new Promise((resolve,reject) => {
+           form.parse(req,(err,fields,files) =>{
+                    if(err) reject(err)
+                    // return {fields,files}
+                    resolve({fields,files});
+                })
+        })
+    }
     try{
 
         let {db} = await connectToDatabase();
-        console.log(req.body)
-         await db.collection("Products").insertOne({
-            title:req.body.title,
-            imgSrc:req.body.imgSrc,
-            slug:slugify(req.body.title + " "+ req.body.size + " "+req.body.color),
-            category: req.body.category,
-            description: req.body.description,
-            price: Number(req.body.price),
-            size: req.body.size,
-            color: req.body.color,
-            availableQuantity: Number(req.body.availableQuantity),
-            brand : req.body.brand
-         })
+        const options : formidable.Options = {
+            uploadDir : path.join(process.cwd(),"/public/images"),
+            filename : (name,ext,path,form) => {
+                        return Date.now().toString() + "_" + path.originalFilename;
+            }
+        }
+
+        // console.log(req.body)
+        // if(req.files.length > 0) {
+        //     console.log(req.files)
+        // }
+        // console.log(req)
+        // console.log(readFiles(req,true))
+        const form : IncomingForm = formidable(options);
+    
+        let formres = form.parse(req , async (err,fields,files) => {
+            // console.log({files,fields})
+            if(err){
+                res.status(422).json({error:"failed to upload image."})
+            }
+            let data : any ={imgSrc:files.imgSrc.newFilename, ...fields }
+            console.log(data)
+            // return JSON.stringify(data)
+            // console.log({files: files.imgSrc.newFilename, ...fields})
+            await db.collection("Products").insertOne({
+               title:data.title,
+               imgSrc:data.imgSrc,
+               slug:slugify(data.title + " "+ data.size + " "+data.color),
+               category: data.category,
+               description: data.description,
+               price: Number(data.price),
+               size: data.size,
+               color: data.color,
+               availableQuantity: Number(data.availableQuantity),
+               brand : data.brand
+            })
+            return res.status(200).json({
+                message: "Product has been created Successfully",
+            })
+        }) 
+       
+        // const formres = await form.parse(req);
+        
         // await addedProduct.save();
-        return res.status(201).json({
-            message: "Product has been created Successfully",
-        })
     }catch(error:any){
        return res.status(422).json({
         message:"Failed to create."
