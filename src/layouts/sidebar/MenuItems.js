@@ -20,9 +20,9 @@ const Menuitems = [
     href: "/admin/add-products",
   },
   {
-    title: "Images uploader",
-    icon: "image",
-    href: "/admin/image-uploader",
+    title: "client",
+    icon: "home",
+    href: "/",
   }
 ];
 

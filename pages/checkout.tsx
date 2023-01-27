@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { ToastContainer, toast } from 'react-toastify';
+import { generateImgUrl } from '../helpers/urlConfig';
 export default function Checkout(props: any) {
   const router = useRouter();
   const [confirmAddress, setConfirmAddress] = React.useState<boolean>(false);
@@ -307,7 +308,7 @@ const loggedIn = async () => {
                                     return (
                                       <li className="flex my-2 px-2 mx-0 lg:mx-2 bg-white  shadow-md py-3" key={ind}>
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                          <Image src={props.cart[key].imgSrc} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
+                                          <Image src={generateImgUrl(props.cart[key].imgSrc)} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
 
                                         <div className="ml-3 flex flex-1 flex-col">

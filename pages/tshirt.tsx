@@ -74,6 +74,7 @@ export default function Tshirt(props:any) {
           }
             </ProductContainer>
           {
+            product.length > 0 ?
             numb <  product.length ? 
               loader ? null :
             <button
@@ -87,7 +88,8 @@ export default function Tshirt(props:any) {
               cursor:"pointer"
             }}
              onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
-          }
+            : <h1>Product is not available.</h1>
+            }
              </>
         }
       </Container>

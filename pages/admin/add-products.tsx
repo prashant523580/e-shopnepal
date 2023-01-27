@@ -2,8 +2,6 @@ import * as React from "react";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import theme from "../../src/theme/theme";
 import Input from '@mui/material/Input'
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,10 +10,11 @@ import FullLayout from '../../src/layouts/FullLayout';
 import Image from "next/image";
 import { ProductTypes } from "../../interface/productInterface";
 import InputLabel from "@mui/material/InputLabel";
-import Select,{SelectChangeEvent} from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
+import Button from "@mui/material/Button";
 export default function AddProducts() {
   const [image, setImage] = React.useState<any>('');
   const [newProduct, setNewProduct] = React.useState<ProductTypes>({
@@ -43,8 +42,15 @@ title: ""
     })
   }
   const addProduct = async () => {
-    let formData = new FormData();
-    formData.append("title", newProduct.title)
+    if((newProduct.title === "" && newProduct.availableQuantity === "" && newProduct.brand === "" &&
+        newProduct.category === "" && newProduct.color === "" && newProduct.description === "" && newProduct.price === "" &&
+        newProduct.size === ""
+    )){
+        alert("fill all inputs")
+      }else{
+
+        let formData = new FormData();
+        formData.append("title", newProduct.title)
     formData.append("availableQuantity", newProduct.availableQuantity)
     formData.append("brand", newProduct.brand)
     formData.append("category", newProduct.category)
@@ -53,16 +59,31 @@ title: ""
     formData.append("description", newProduct.description)
     formData.append("price", newProduct.price)
     formData.append("imgSrc", image)
-    console.log(formData)
-
+    // console.log(formData)
+    
     // let productData = {
-    //   imgSrc : image,
-    //   ...newProduct
-    // }
-    let res = await axios.post("/api/products", formData)
-    // let data = await res.json();
-    console.log(res)
-  }
+      //   imgSrc : image,
+      //   ...newProduct
+      // }
+      let res = await axios.post("/api/products", formData)
+      // let data = await res.json();
+      // console.log(res.status == 200)
+      if(res.status === 200){
+       
+        setImage("");
+        setNewProduct({
+          availableQuantity: "",
+          brand: "",
+          category: "",
+          color: "",
+          description: "",
+          price: "",
+          size: "",
+          title: ""
+        })
+      }
+    }
+    }
   // const handleChange = (event: SelectChangeEvent) => {
   //   // setSize(event.target.value as string);
   // };
@@ -74,10 +95,12 @@ title: ""
           Add Products
         </Typography>
         <Grid container spacing={3}>
+      
           <Grid item xs={12} sm={6}>
             <TextField
               onChange={inputEvent}
               required
+              value={newProduct.title}
               id="title"
               name="title"
               label="Title"
@@ -88,6 +111,7 @@ title: ""
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+            value={newProduct.brand}
               onChange={inputEvent}
               required
               id="brand"
@@ -100,6 +124,7 @@ title: ""
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+            value={newProduct.color}
               onChange={inputEvent}
               required
               id="color"
@@ -141,7 +166,7 @@ title: ""
           </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+            {/* <TextField
               onChange={inputEvent}
               required
               id="category"
@@ -150,10 +175,27 @@ title: ""
               fullWidth
               autoComplete="category"
               variant="standard"
-            />
+            /> */}
+              <FormControl fullWidth>
+
+<InputLabel id="demo-simple-select-label">Category</InputLabel>
+<Select
+  labelId="demo-simple-select-label"
+  id="demo-simple-select"
+  value={newProduct?.category}
+  label="category"
+  name="category"
+  onChange={inputEvent}
+>
+  <MenuItem value={"t-shirt"}>tshirt</MenuItem>
+  <MenuItem value={"hoodie"}>hoddie</MenuItem>
+  <MenuItem value={"pant"}>pant</MenuItem>
+</Select>
+</FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+            value={newProduct.price}
               onChange={inputEvent}
               required
               id="price"
@@ -166,6 +208,7 @@ title: ""
           </Grid>
           <Grid item xs={12}>
             <TextField
+            value={newProduct.availableQuantity}
               onChange={inputEvent}
               required
               id="availableQuantity"
@@ -179,6 +222,7 @@ title: ""
 
           <Grid item xs={12}>
             <TextField
+            value={newProduct.description}
               onChange={inputEvent}
               required
               id="description"
@@ -193,6 +237,7 @@ title: ""
           </Grid>
           <Grid item xs={12}>
             <Input
+            // value={image}
               required
               id="image"
               name="image"
@@ -214,7 +259,10 @@ title: ""
             </Grid>
           }
           <Grid item xs={12}>
-            <button onClick={addProduct}>submit</button>
+            <Button style={{
+              color:"white",
+              background: "gray"
+            }} onClick={addProduct}>submit</Button>
           </Grid>
         </Grid>
       </FullLayout>

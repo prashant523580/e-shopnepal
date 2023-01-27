@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import Container from '../components/Container';
 import ProductCard from '../components/productCard'
 import ProductContainer from '../components/ProductContainer';
+import { generateImgUrl } from '../helpers/urlConfig';
 
 export default function Hoodies(props:any) {
   const [loading,setLoading] = React.useState<boolean>(true);
@@ -59,7 +60,7 @@ export default function Hoodies(props:any) {
                       title={product.title}
                       price={product.price}
                       category={product.category}
-                      imgSrc={product.imgSrc}
+                      imgSrc={generateImgUrl(product.imgSrc)}
                       size ={product.size}
                       />
                       )
@@ -73,6 +74,7 @@ export default function Hoodies(props:any) {
           }
             </ProductContainer>
           {
+            product.length > 0  ?
             numb <  product.length ? 
               loader ? null :
             <button
@@ -86,7 +88,8 @@ export default function Hoodies(props:any) {
               cursor:"pointer"
             }}
              onClick={loadMoreData}>load more </button> : <p className='p'>Yay! You have seen it all</p>
-          }
+            : <h1 className='py-20'>product is not available now.</h1>
+            }
              </>
         }
       </Container>

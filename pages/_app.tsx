@@ -109,16 +109,16 @@ const [user,setUser] = React.useState<any>({value : null});
     setUser({value:null})
     // console.log(user)
     router.push("/")
-    toast.success("Successfully Logout.", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    })
+    // toast.success("Successfully Logout.", {
+    //   position: "bottom-right",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    // })
   }
   const renderLoading = () => {
     return(<>

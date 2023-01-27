@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { generateImgUrl } from '../../helpers/urlConfig';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -129,7 +130,7 @@ export default function Products({products}:any) {
 
             
             <TableRow key={products[key]._id}>
-              <TableCell><Image alt={products[key].title} src={products[key].imgSrc} sizes="100vw" width={100} height={100}/></TableCell>
+              <TableCell><Image alt={products[key].title} src={generateImgUrl(products[key].imgSrc)} sizes="100vw" width={100} height={100}/></TableCell>
               <TableCell> <h1 className='truncate w-40'> {products[key].title}</h1></TableCell>
               <TableCell>{products[key].category}</TableCell>
               <TableCell>{products[key].brand}</TableCell>

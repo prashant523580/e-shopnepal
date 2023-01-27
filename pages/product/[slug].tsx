@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { connectToDatabase } from '../../lib/mongodb';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { generateImgUrl } from '../../helpers/urlConfig';
 export default function ProductSlug(props: any) {
   // const router = useRouter();
   const [product] = React.useState<any>(props.product);
@@ -121,7 +122,7 @@ export default function ProductSlug(props: any) {
             height={100}
             objectFit="contain"
             className='lg:w-1/2 w-full lg:h-auto   rounded object-contain'
-            src={product.imgSrc} 
+            src={generateImgUrl(product.imgSrc)} 
             priority
             />
          

@@ -99,13 +99,13 @@ const addProducts = async  (req:NextApiRequest,res:NextApiResponse) => {
             if(err){
                 res.status(422).json({error:"failed to upload image."})
             }
-            let data : any ={imgSrc:files.imgSrc.newFilename, ...fields }
-            console.log(data)
+            let data : any ={imgSrc:files.imgSrc, ...fields }
+            // console.log(data.imgSrc.newFilename)
             // return JSON.stringify(data)
             // console.log({files: files.imgSrc.newFilename, ...fields})
             await db.collection("Products").insertOne({
                title:data.title,
-               imgSrc:data.imgSrc,
+               imgSrc:data.imgSrc.newFilename,
                slug:slugify(data.title + " "+ data.size + " "+data.color),
                category: data.category,
                description: data.description,

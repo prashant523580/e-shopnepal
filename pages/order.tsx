@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Container from '../components/Container'
+import { generateImgUrl } from '../helpers/urlConfig';
 import { connectToDatabase } from '../lib/mongodb'
 
 export default function Order({ order }: any) {
@@ -86,7 +87,7 @@ export default function Order({ order }: any) {
                                         <h1 className='my-2'>{order.products[key].title} ({order.products[key].size}/{order.products[key].color})</h1>  
                                         <div>
 
-                                        <Image width={200} height={100} className=" object-cover object-center rounded-lg md:mt-0" src={order.products[key].imgSrc} alt="step" />
+                                        <Image width={200} height={100} className=" object-cover object-center rounded-lg md:mt-0" src={generateImgUrl(order.products[key].imgSrc)} alt="step" />
                                         </div>
                                         </div>
                                     )

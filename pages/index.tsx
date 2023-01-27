@@ -6,6 +6,7 @@ import { connectToDatabase } from '../lib/mongodb'
 
 import { ToastContainer, toast } from 'react-toastify';
 import Script from 'next/script';
+import { generateImgUrl } from '../helpers/urlConfig';
 
 export default function Home(props:any) {
   
@@ -90,7 +91,7 @@ export default function Home(props:any) {
               title={props.products[key].title}
               price={props.products[key].price}
               category={props.products[key].category}
-              imgSrc={props.products[key].imgSrc}
+              imgSrc={generateImgUrl(props.products[key].imgSrc)}
               size ={props.products[key].size}
               />
               )

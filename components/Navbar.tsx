@@ -10,6 +10,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { generateImgUrl } from '../helpers/urlConfig';
 
 interface PropsTypes {
   openDrawer: boolean
@@ -254,7 +255,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                     return (
                                       <li className="flex py-6" key={ind}>
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                          <Image src={this.props.cart[key].imgSrc} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
+                                          <Image src={generateImgUrl(this.props.cart[key].imgSrc)} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
 
                                         <div className="ml-4 flex flex-1 flex-col">
