@@ -118,16 +118,17 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
     this.props.addToCart(incrementCartQuantity)
   }
   toggleCart = () => {
-    if (this.state.cartConRef.current.classNameList.contains("translate-x-full")) {
-      this.state.cartConRef.current.classNameList.remove("translate-x-full");
-      this.state.cartConRef.current.classNameList.add("translate-x-0");
+    if (this.state.cartConRef.current.classList.contains("translate-x-full")) {
+      this.state.cartConRef.current.classList.remove("translate-x-full");
+      this.state.cartConRef.current.classList.add("translate-x-0");
     }
-    else if (!this.state.cartConRef.current.classNameList.contains("translate-x-full")) {
-      this.state.cartConRef.current.classNameList.remove("translate-x-0");
-      this.state.cartConRef.current.classNameList.add("translate-x-full");
+    else if (!this.state.cartConRef.current.classList.contains("translate-x-full")) {
+      this.state.cartConRef.current.classList.remove("translate-x-0");
+      this.state.cartConRef.current.classList.add("translate-x-full");
 
 
     }
+    console.log(this.state.cartConRef.current.classList.contains("translate-x-full"))
   }
   render(): React.ReactNode {
     let links = [
