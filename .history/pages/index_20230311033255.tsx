@@ -11,7 +11,7 @@ import ProductContainer from '../components/ProductContainer';
 
 export default function Home(props: any) {
   const [product, setProduct] = React.useState<any>([]);
-  const [numb, setNumb] = React.useState<number>(5);
+  const [numb, setNumb] = React.useState<number>(4);
   const [loader, setLoader] = React.useState<boolean>(false);
 
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -33,7 +33,7 @@ export default function Home(props: any) {
     setLoader(true)
     setTimeout(() => {
       setLoader(false);
-      setNumb(numb + 5)
+      setNumb(numb + 4)
     }, 500)
   }
   return (

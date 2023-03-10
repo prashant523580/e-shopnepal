@@ -33,7 +33,7 @@ export default function Pants(props: any) {
     setLoader(true)
     setTimeout(() => {
       setLoader(false);
-      setNumb(numb + 5)
+      setNumb(numb + 4)
     }, 500)
   }
   return (

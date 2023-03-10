@@ -8,7 +8,7 @@ export default function Pants(props: any) {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const [product, setProduct] = React.useState<any>([]);
-  const [numb, setNumb] = React.useState<number>(5);
+  const [numb, setNumb] = React.useState<number>(3);
   const [loader, setLoader] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -33,7 +33,7 @@ export default function Pants(props: any) {
     setLoader(true)
     setTimeout(() => {
       setLoader(false);
-      setNumb(numb + 5)
+      setNumb(numb + 4)
     }, 500)
   }
   return (

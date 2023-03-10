@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductCard from '../components/productCard';
+import Tshirt from './tshirt'
 
 export default function All(props: any) {
     const [products, setProducts] = React.useState<Array<object>>([]);

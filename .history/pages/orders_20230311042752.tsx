@@ -33,7 +33,7 @@ export default function Order(props: any) {
 
       renderOnload();
     }
-  })
+  }, [renderOnload])
   const renderOnload = async () => {
 
     let token: any = localStorage.getItem("token");

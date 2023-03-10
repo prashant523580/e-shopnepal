@@ -34,7 +34,7 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
             //  objectFit={"contain"}
             className="transition-all h-full w-full object-fill  object-top group-hover:opacity-75"
           />
-          <p className=" absolute -left-1 top-5 rotate-[-45deg] bg-gray-500 opacity-60 rounded-xl px-2  text-xs text-white">{brand}</p>
+          <p className=" absolute left-0 top-8 rotate-[-45deg] bg-gray-500 opacity-60 rounded-xl px-2  text-xs text-white">{brand}</p>
           <p className=" absolute bottom-2 right-2 bg-orange-400 rounded-md px-2  text-lg font-medium text-white">Rs.{price}</p>
         </div>
         <div className='px-2'>

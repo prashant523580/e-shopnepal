@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductCard from '../components/productCard';
+import Tshirt from './tshirt'
 
 export default function All(props: any) {
     const [products, setProducts] = React.useState<Array<object>>([]);
@@ -7,7 +8,7 @@ export default function All(props: any) {
     const [currentProducts, setCurrentProducts] = React.useState<Array<Object>>([]);
     const [brandCategory, setBrandCategory] = React.useState<Array<string>>([]);
     React.useEffect(() => {
-        // console.log(products)
+        console.log(products)
         let productArray: any = Object.keys(props.products).map((key) => {
             return props.products[key]
           
@@ -28,8 +29,8 @@ export default function All(props: any) {
             return values
         }, [])
         setBrandCategory(brands)
-        // console.log(category)
-    }, [props])
+        console.log(category)
+    }, [])
     const handleProducts = (category: string) => {
         console.log(category)
         let currentProductArray: Array<object> = [];
@@ -119,6 +120,8 @@ export default function All(props: any) {
 
 
 export const getServerSideProps = async () => {
+    // let {db} = await connectToDatabase();
+    // let products = await db.collection("Products").find({}).toArray();
     let dev = process.env.NODE_ENV !== "production";
     let { DEV_URL, PROD_URL } = process.env;
 

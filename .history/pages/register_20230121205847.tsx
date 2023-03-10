@@ -18,7 +18,7 @@ export default function Register() {
     if (localStorage.getItem("token")) {
       router.push("/")
     }
-  }, [router])
+  }, [])
   const inputEvent = (e: any) => {
     let { name, value } = e.target;
     setUser((pre: any) => {

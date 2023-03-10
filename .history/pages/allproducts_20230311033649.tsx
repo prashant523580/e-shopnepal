@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductCard from '../components/productCard';
+import Tshirt from './tshirt'
 
 export default function All(props: any) {
     const [products, setProducts] = React.useState<Array<object>>([]);
@@ -119,6 +120,8 @@ export default function All(props: any) {
 
 
 export const getServerSideProps = async () => {
+    // let {db} = await connectToDatabase();
+    // let products = await db.collection("Products").find({}).toArray();
     let dev = process.env.NODE_ENV !== "production";
     let { DEV_URL, PROD_URL } = process.env;
 

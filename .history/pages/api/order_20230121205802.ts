@@ -1,6 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse} from 'next';
 import {connectToDatabase} from "../../lib/mongodb";
+const Cryptojs = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
 const ObjectId  = require("mongodb").ObjectId;
