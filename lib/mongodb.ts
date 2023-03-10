@@ -1,5 +1,5 @@
 // import mongoose from "mongoose";
-import { MongoClient } from "mongodb";
+import  { MongoClient, MongoClientOptions, MongoOptions } from "mongodb";
 
 const MONGODB_URI : any = process.env.MONGO_URI;
 const DB_NAME : any =  process.env.DB_NAME;
@@ -16,19 +16,22 @@ let cachedDb : any = null;
 
 export async function connectToDatabase(){
     //check the cache
-    if(cachedClient & cachedDb){
+    if(cachedClient && cachedDb){
             return{
                 client : cachedClient,
                 db : cachedDb
             }
     }
     //connection option
-    const options : any = {
+    const options : any= {
         useNewUrlParser : true,
-        useUnifiedTopology : true
+        useUnifiedTopology : true,
+        
+        
+
     }
     //connect to cluster
-    let client = new MongoClient(MONGODB_URI,options);
+    let client  = new MongoClient(MONGODB_URI,options);
     await client.connect()
     let db = client.db(DB_NAME);
     //set cache
