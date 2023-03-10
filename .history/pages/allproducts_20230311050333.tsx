@@ -155,7 +155,7 @@ export const getServerSideProps = async () => {
     // console.log(tshirts)
     return {
         props: {
-            products :JSON.parse(JSON.stringify(tshirts))
+            products :tshirts
         }
     }
 }
