@@ -77,9 +77,9 @@ export default function All(props: any) {
                     <div className='h-1 w-20 bg-orange-500'></div>
                     <ul>
                         {
-                            productCategory.map((category,ind) => {
+                            productCategory.map((category) => {
                                 return (
-                                    <li key={ind} className='capitalize my-1 cursor-pointer' onClick={() => handleProducts(category)}>{category}</li>
+                                    <li className='capitalize my-1 cursor-pointer' onClick={() => handleProducts(category)}>{category}</li>
                                 )
                             })
                         }
@@ -91,9 +91,9 @@ export default function All(props: any) {
                     <div className='h-1 w-20 bg-orange-500'></div>
                     <ul>
                         {
-                            brandCategory.map((category,ind) => {
+                            brandCategory.map((category) => {
                                 return (
-                                    <li key={ind} className='capitalize my-1 cursor-pointer' onClick={() => handleBrands(category)}>{category}</li>
+                                    <li className='capitalize my-1 cursor-pointer' onClick={() => handleBrands(category)}>{category}</li>
                                 )
                             })
                         }
