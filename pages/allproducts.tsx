@@ -1,9 +1,5 @@
 import React from 'react'
 import ProductCard from '../components/productCard';
-import ProductContainer from '../components/ProductContainer';
-import { generateImgUrl } from '../helpers/urlConfig';
-import { connectToDatabase } from '../lib/mongodb'
-import Pants from './pant'
 import Tshirt from './tshirt'
 
 export default function All(props: any) {
@@ -15,14 +11,7 @@ export default function All(props: any) {
         console.log(products)
         let productArray: any = Object.keys(props.products).map((key) => {
             return props.products[key]
-            productArray.push(props.products[key]);
-            // products[key].reduce((values,items) => {
-
-            //     if(values.includes(items.category)){
-            //             values.push(items.category);
-            //         }
-            //             return values
-            // },["all"])   
+          
         })
         let category = productArray.reduce((values: Array<String>, items: any) => {
             if (!values.includes(items.category)) {
