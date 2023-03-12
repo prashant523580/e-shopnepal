@@ -68,7 +68,7 @@ export default function Home(props: any) {
       <section className="text-gray-600 body-font">
 
         {/* <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8"> */}
-        <h2 className="text-center text-3xl font-bold py-4">Products For You</h2>
+        <h2 className="text-center text-2xl font-bold py-2">Products For You</h2>
 
         <ProductContainer>
           {

@@ -18,10 +18,13 @@ export default function All(props: any) {
     }, [dispatch])
     React.useEffect(() => {
         // console.log(products.products)
+        
         let productArray: any = Object.keys(products).map((key) => {
-            return props.products[key]
+            //return products Array object without keys
+            return products[key]
 
         })
+        //getting unique value for product category
         let category = productArray.reduce((values: Array<String>, items: any) => {
             if (!values.includes(items.category)) {
                 values.push(items.category);
@@ -31,6 +34,7 @@ export default function All(props: any) {
         setProcuctCategory(category);
         setAllProducts(productArray);
         setCurrentProducts(productArray)
+        //getting unique values for brand CAtegory
         let brands = productArray.reduce((values: Array<String>, items: any) => {
             if (!values.includes(items.brand)) {
                 values.push(items.brand);
@@ -40,9 +44,11 @@ export default function All(props: any) {
         setBrandCategory(brands)
 
     }, [products])
+    //handle  current category products
     const handleProducts = (category: string) => {
         console.log(category)
         let currentProductArray: Array<object> = [];
+        
         allProducts.filter((product: any) => {
             if (product.category === category) {
                 currentProductArray.push(product)
@@ -52,7 +58,7 @@ export default function All(props: any) {
             currentProductArray = allProducts;
         }
         setCurrentProducts(currentProductArray)
-        console.log(products)
+        // console.log(products)
     }
     const handleBrands = (brand: string) => {
         // console.log(category)

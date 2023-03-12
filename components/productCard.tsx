@@ -3,6 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { generateImgUrl } from '../helpers/urlConfig';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
 interface PropsTypes {
   imgSrc?: string,
   slug?: string,
@@ -22,12 +25,9 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
     <div className="transition-all rounded-md flex flex-col">
 
       <Link href={"/product/" + slug} >
-        <div style={{
-          position: "relative",
-          // height: 160,
-          // width:280
-        }}
-          className="aspect-w-1 border-b h-[200px] max-md:h-[150px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+        <div
+          className="aspect-w-1 relative border-b h-[200px] max-md:h-[150px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+      
         >
           <Image 
           fill
@@ -37,27 +37,33 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
             //  objectFit={"contain"}
             className="transition-all h-full w-full object-fill  object-top group-hover:opacity-75"
           />
-          <p className=" absolute -left-1 top-5 rotate-[-45deg] bg-gray-500 opacity-60 rounded-xl px-2  text-xs text-white">{brand}</p>
-          <p className=" absolute bottom-2 right-2 bg-orange-400 rounded-md px-2  text-lg font-medium text-white">Rs.{price}</p>
+          <p className=" absolute left-1 top-1  bg-gray-500 opacity-60 rounded-xl px-2  text-sm text-white">{brand}<LocalOfferIcon sx={{
+            fontSize:15
+          }}/></p>
+          <p className=" absolute bottom-2 right-2 bg-orange-600 rounded-md px-2  text-sm font-medium text-white">Rs.{price}</p>
         </div>
         <div className='px-2'>
 
           <h3 style={{
             fontFamily: "var(--font-kaveat)"
-          }} className="font-bold text-l text-gray-700 truncate">{title}</h3>
-          <h3 className="text-gray-500  text-xm   title-font">Category : {category}</h3>
+          }} className="font-bold text-sm text-gray-500 truncate">{title}</h3>
+          <h3 className="text-gray-400  text-md  title-font">Category : {category}</h3>
 
-          <p className=" uppercase space-x-2 "> {size.length > 0 ? size.map((si: any, ind: number) => <span key={ind}>{si} </span>) : "Out Of Stock"}</p>
+          <p className=" uppercase space-x-2 text-xs"> {size.length > 0 ? size.map((si: any, ind: number) => <span key={ind}>{si} </span>) : "Out Of Stock"}</p>
         </div>
       </Link >
       <Button onClick={addToCart} style={{
-        background: "rgba(0,0,0,0.3)",
+        background: "rgba(0,0,0,0.2)",
         marginTop: " auto",
-        color: "black",
+        color: "rgba(0,0,0,0.5)",
         fontWeight: "200",
         width: "100%",
-        borderRadius: 0
-      }}>Add to Bag</Button>
+        borderRadius: 0,
+        fontFamily:"sans-serif",
+        textTransform:"capitalize"
+      }}>Add to Bag <ShoppingCartOutlinedIcon sx={{
+        ml:2,
+      }}/></Button>
 
 
     </div>

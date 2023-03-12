@@ -2,11 +2,9 @@ import React from 'react'
 
 export default function ProductContainer(props: any) {
     return (
-        <section className="text-gray-600 ">
             
-    <div className="mt-6 grid grid-cols-2 px-8 gap-y-6 gap-x-2 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
+    <div className="mt-6 grid grid-cols-2 px-6 max-md:px-2 gap-y-6 gap-x-2 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-8">
                 {props.children}
             </div>
-        </section>
     )
 }

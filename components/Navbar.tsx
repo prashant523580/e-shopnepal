@@ -260,6 +260,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                   Object.keys(this.props.cart).map((key, ind) => {
                                     return (
                                       <li className="flex py-6" key={ind}>
+                                        <Link className='flex' onClick={this.toggleCart}  href={`/product/${this.props.cart[key].slug}`}>
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                           <Image src={generateImgUrl(this.props.cart[key].imgSrc)} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
@@ -268,7 +269,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                           <div>
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                              
-                                                <Link  href={`/product/${this.props.cart[key].slug}`}><h3 style={{width:"200px"}} className='truncate'>{this.props.cart[key].title}</h3></Link>
+                                                <h3 style={{width:"100px"}} className='truncate'>{this.props.cart[key].title}</h3>
                                             
                                               <p className="ml-4">Rs.{this.props.cart[key].price}</p>
                                             </div>
@@ -289,6 +290,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                             </div>
                                           </div>
                                         </div>
+                                        </Link>
                                       </li>
                                     )
                                   })
