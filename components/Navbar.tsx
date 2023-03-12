@@ -140,22 +140,22 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
         label: "All",
         path: "/allproducts"
       },
-      {
-        label: "tshirts",
-        path: "/tshirt"
-      },
-      {
-        label: "pants",
-        path: "/pant"
-      },
-      {
-        label: "hoodies",
-        path: "/hoodies"
-      },
-      {
-        label: "contact us",
-        path: "/contact"
-      }
+      // {
+      //   label: "tshirts",
+      //   path: "/tshirt"
+      // },
+      // {
+      //   label: "pants",
+      //   path: "/pant"
+      // },
+      // {
+      //   label: "hoodies",
+      //   path: "/hoodies"
+      // },
+      // {
+      //   label: "contact us",
+      //   path: "/contact"
+      // }
     ]
 
     return (
@@ -176,8 +176,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
             </div>
         </header>
         <nav ref={this.state.navLinkRef} className={` ${this.props.router.pathname.slice(0,6) === "/admin" ? " hidden " : " flex  " } `+ styles.nav + " sticky top-0 bg-gray-800" }>
-          <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
-          <div className={styles.nav_link} style={{
+        <div className={styles.nav_link} style={{
             right: this.state.openDrawer ? "0" : "-65%"
           }}>
             {
@@ -193,6 +192,8 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
               })
             }
           </div>
+          <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
+         
           <div className='flex items-center justify-end' >
         
            

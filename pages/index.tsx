@@ -8,6 +8,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import Script from 'next/script';
 import { generateImgUrl } from '../helpers/urlConfig';
 import ProductContainer from '../components/ProductContainer';
+import { AppDispatch, useAppDispatch, useAppSelector } from '../redux/store';
+import { getAllProducts } from '../redux/actions/product.action';
+import { useDispatch } from 'react-redux';
 
 export default function Home(props: any) {
   const [product, setProduct] = React.useState<any>([]);
@@ -15,11 +18,13 @@ export default function Home(props: any) {
   const [loader, setLoader] = React.useState<boolean>(false);
 
   const [loading, setLoading] = React.useState<boolean>(true);
+  const {products} = useAppSelector(state => state);
+  const dispatch = useDispatch<any>();
   React.useEffect(() => {
+    dispatch(getAllProducts())
     setTimeout(() => {
       setLoading(false)
     }, 500)
-
     //  if(props.products.products != null){
     //  let prod : any = [];
     //  Object.keys(props.products.products).map((key: any) => {
@@ -28,7 +33,11 @@ export default function Home(props: any) {
     // })
     // setProduct(prod)
     // }
-  }, [])
+    
+  }, [dispatch])
+  React.useEffect(() => {
+    console.log(products)
+  },[products])
   const loadMoreData = () => {
     setLoader(true)
     setTimeout(() => {

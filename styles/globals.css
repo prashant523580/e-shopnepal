@@ -9,7 +9,7 @@
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb: 225, 225, 225;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -27,9 +27,9 @@
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
   --tile-border: conic-gradient(
-    #00000080,
+    #ddd6d680,
     #00000040,
-    #00000030,
+    #a8a7a730,
     #00000020,
     #00000010,
     #00000010,
@@ -51,7 +51,7 @@
 @tailwind utilities;
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb: 225, 225, 225;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
@@ -96,13 +96,14 @@ body {
 }
 
 body {
-  color: rbg(--foreground-rgb);
-  background: linear-gradient(
+  /* color: rbg(--foreground-rgb); */
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+    background-color: rgba(225,225,225,.5);
    
     /* font-family: 'Caveat', cursive; */
 /* font-family: 'DM Serif Text', serif; */
@@ -131,8 +132,8 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
+} */

@@ -2,7 +2,7 @@
     padding: 10px 12px;
     background: rgb(255, 255, 255);
     color: rgb(59, 58, 58);
-   
+    display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 99999;
@@ -12,14 +12,22 @@
   .logo{
     color: rgb(43, 42, 42);
     font-size:30px;
+    /* box-shadow: 0 2px 0 0 black; */
+    transition: all .2s ease-in-out;
+    place-items: center;
+    align-self: center;
+  }
+  .logo:hover{
+      transform: scale(1.1);
   }
     .nav_link{
-      width: 50%;
+      /* width: 50%; */
       display:flex;
-      justify-content: space-around;
+      justify-content: flex-start;
     }
     .link{
       padding: 4px 0px;
+      margin: 0 .3em;
       text-align: center;
       text-transform: capitalize;
       transition: all .3s ease;

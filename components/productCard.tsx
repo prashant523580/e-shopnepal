@@ -16,7 +16,7 @@ interface PropsTypes {
 }
 export default function ProductCard({ addToCart, productItem }: PropsTypes) {
   const { title, category, slug, imgSrc, price, size, brand } = productItem;
-  console.log(title)
+  // console.log(title)
   return (
 
     <div className="transition-all rounded-md flex flex-col">
@@ -24,13 +24,16 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
       <Link href={"/product/" + slug} >
         <div style={{
           position: "relative",
-          height: 200,
+          // height: 160,
           // width:280
         }}
-          className="aspect-w-1 border-b  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+          className="aspect-w-1 border-b h-[200px] max-md:h-[150px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
         >
-          <Image fill sizes="100vw"
+          <Image 
+          fill
+          sizes='100%'
             src={generateImgUrl(imgSrc)} alt={title}
+            priority
             //  objectFit={"contain"}
             className="transition-all h-full w-full object-fill  object-top group-hover:opacity-75"
           />
