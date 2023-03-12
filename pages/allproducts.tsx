@@ -48,7 +48,7 @@ export default function All(props: any) {
     const handleProducts = (category: string) => {
         console.log(category)
         let currentProductArray: Array<object> = [];
-        
+
         allProducts.filter((product: any) => {
             if (product.category === category) {
                 currentProductArray.push(product)
@@ -109,9 +109,9 @@ export default function All(props: any) {
                 </div>
 
             </div>
-            <div className='w-[70%] max-md:w-[100%] my-3 h-[100vh] overflow-y-auto scrollbar-hide bg-gray-300 rounded-3xl shadow-xl' >
+            <div className='w-[70%] max-md:w-[100%] py-3 h-[100vh] overflow-y-auto scrollbar-hide bg-gray-300 rounded-3xl shadow-xl' >
 
-                <div className='mt-6 grid grid-cols-2 px-8 gap-y-6 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-5'>
+                <div className='mt-6 grid grid-cols-2 px-4 gap-y-6 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-5'>
 
                     {
                         currentProducts.map((product: any, ind) => {

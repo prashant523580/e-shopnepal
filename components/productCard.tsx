@@ -42,21 +42,21 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
           }}/></p>
           <p className=" absolute bottom-2 right-2 bg-orange-600 rounded-md px-2  text-sm font-medium text-white">Rs.{price}</p>
         </div>
-        <div className='px-2'>
+        <div className='px-2 py-1'>
 
           <h3 style={{
             fontFamily: "var(--font-kaveat)"
           }} className="font-bold text-sm text-gray-500 truncate">{title}</h3>
-          <h3 className="text-gray-400  text-md  title-font">Category : {category}</h3>
+          <h3 className="text-gray-600  text-sm  title-font">Category : {category}</h3>
 
           <p className=" uppercase space-x-2 text-xs"> {size.length > 0 ? size.map((si: any, ind: number) => <span key={ind}>{si} </span>) : "Out Of Stock"}</p>
         </div>
       </Link >
       <Button onClick={addToCart} style={{
-        background: "rgba(0,0,0,0.2)",
+        background: "rgba(225,225,225,1)",
         marginTop: " auto",
-        color: "rgba(0,0,0,0.5)",
-        fontWeight: "200",
+        color: "rgba(0,0,0,0.6)",
+        fontWeight: "bold",
         width: "100%",
         borderRadius: 0,
         fontFamily:"sans-serif",

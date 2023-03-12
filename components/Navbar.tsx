@@ -137,7 +137,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
         path: "/"
       },
       {
-        label: "All",
+        label: "Shop By",
         path: "/allproducts"
       },
       // {
