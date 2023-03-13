@@ -5,7 +5,6 @@ import React from 'react'
 import { generateImgUrl } from '../helpers/urlConfig';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ShoppingCart from '@mui/icons-material/ShoppingCart';
 interface PropsTypes {
   imgSrc?: string,
   slug?: string,

@@ -76,11 +76,11 @@ export default function All(props: any) {
         <MainLayout>
 
         <section className='flex justify-between flex-row  max-md:flex-col '>
-            <div className='w-[25%] max-md:w-[100%] max-md:flex flex-row sm:px-1 md:px-2 lg:px-3 xl:px-5 h-[100vh] max-md:h-[auto] bg-gray-300 rounded-3xl' >
+            <div className='w-[25%] max-md:w-[100%] max-md:sticky top-0 max-md:flex flex-row sm:px-1 md:px-2 lg:px-3 xl:px-5 h-[100vh] max-md:h-[auto] bg-gray-300 rounded-3xl' >
                 <div className='px-1 py-5 max-md:flex-row'>
                     <div>
 
-                    <h1 className='capitalize font-bold'>shop by Category</h1>
+                    <h1 className='capitalize font-bold'>Category</h1>
                     <div className='h-1 w-20 bg-orange-500'></div>
                     </div>
                     <ul>
@@ -109,7 +109,7 @@ export default function All(props: any) {
                 </div>
 
             </div>
-            <div className='w-[70%] max-md:w-[100%] py-3 h-[100vh] overflow-y-auto scrollbar-hide bg-gray-300 rounded-3xl shadow-xl' >
+            <div className='w-[70%] max-md:w-[100%] max-md:my-2 py-3 h-[100vh] overflow-y-auto scrollbar-hide bg-gray-300 rounded-3xl shadow-xl' >
 
                 <div className='mt-6 grid grid-cols-2 px-4 gap-y-6 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-5'>
 
