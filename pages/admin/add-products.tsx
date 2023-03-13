@@ -50,14 +50,14 @@ title: ""
       }else{
 
         let formData = new FormData();
-        formData.append("title", newProduct.title)
-    formData.append("availableQuantity", newProduct.availableQuantity)
-    formData.append("brand", newProduct.brand)
-    formData.append("category", newProduct.category)
-    formData.append("color", newProduct.color)
-    formData.append("size", newProduct.size)
-    formData.append("description", newProduct.description)
-    formData.append("price", newProduct.price)
+        formData.append("title", `${newProduct.title}`)
+    formData.append("availableQuantity", `${newProduct.availableQuantity}`)
+    formData.append("brand", `${newProduct.brand}`)
+    formData.append("category", `${newProduct.category}`)
+    formData.append("color", `${newProduct.color}`)
+    formData.append("size", `${newProduct.size}`)
+    formData.append("description", `${newProduct.description}`)
+    formData.append("price", `${newProduct.price}`)
     formData.append("imgSrc", image)
     // console.log(formData)
     

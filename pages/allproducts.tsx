@@ -139,43 +139,43 @@ export default function All(props: any) {
 }
 
 
-export const getServerSideProps = async () => {
-    // let dev = process.env.NODE_ENV !== "production";
-    // let { DEV_URL, PROD_URL } = process.env;
+// export const getServerSideProps = async () => {
+//     // let dev = process.env.NODE_ENV !== "production";
+//     // let { DEV_URL, PROD_URL } = process.env;
     
-    // let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
-    // let { products } = await res.json();
-    let { db } = await connectToDatabase();
-    let products = await db.collection("Products").find({})
-        .toArray();
-    // console.log(typeof products)
-    let tshirts: any = {};
-    for (let item of products) {
-        // console.log(item.title)
-        if (item.title in tshirts) {
-            if (!tshirts[item.title].color.includes(item.color) && item.availableQuantity > 0) {
-                tshirts[item.title].color.push(item.color)
-            }
-            if (!tshirts[item.title].size.includes(item.size) && item.availableQuantity > 0) {
-                tshirts[item.title].size.push(item.size)
-            }
-        } else {
-            tshirts[item.title] = item
-            if (item.availableQuantity > 0) {
-                tshirts[item.title].size = [item.size];
-                tshirts[item.title].color = [item.color]
-            } else {
-                tshirts[item.title].size = [];
-                tshirts[item.title].color = []
+//     // let res = await fetch(`${dev ? DEV_URL : PROD_URL}/api/products`);
+//     // let { products } = await res.json();
+//     let { db } = await connectToDatabase();
+//     let products = await db.collection("Products").find({})
+//         .toArray();
+//     // console.log(typeof products)
+//     let tshirts: any = {};
+//     for (let item of products) {
+//         // console.log(item.title)
+//         if (item.title in tshirts) {
+//             if (!tshirts[item.title].color.includes(item.color) && item.availableQuantity > 0) {
+//                 tshirts[item.title].color.push(item.color)
+//             }
+//             if (!tshirts[item.title].size.includes(item.size) && item.availableQuantity > 0) {
+//                 tshirts[item.title].size.push(item.size)
+//             }
+//         } else {
+//             tshirts[item.title] = item
+//             if (item.availableQuantity > 0) {
+//                 tshirts[item.title].size = [item.size];
+//                 tshirts[item.title].color = [item.color]
+//             } else {
+//                 tshirts[item.title].size = [];
+//                 tshirts[item.title].color = []
 
-            }
-        }
+//             }
+//         }
 
-    }
-    // console.log(tshirts)
-    return {
-        props: {
-            products: JSON.parse(JSON.stringify(tshirts))
-        }
-    }
-}
+//     }
+//     // console.log(tshirts)
+//     return {
+//         props: {
+//             products: JSON.parse(JSON.stringify(tshirts))
+//         }
+//     }
+// }
