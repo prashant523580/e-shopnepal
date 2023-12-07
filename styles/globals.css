@@ -103,7 +103,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
-    background-color: rgba(225,225,225,.5);
+    /* background-color: rgba(225,225,225,.5); */
    
     /* font-family: 'Caveat', cursive; */
 /* font-family: 'DM Serif Text', serif; */

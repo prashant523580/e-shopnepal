@@ -195,12 +195,14 @@ const loggedIn = async () => {
       <div className="container px-2 mx-auto flex flex-wrap flex-col">
         <CheckoutComponent
           icon={<ContactMailIcon />}
-          step={<h1>Step 1: Delivery Address</h1>}
+          step={<h1>Step 1: User Info</h1>}
           active={props.user.value}
         >
           {/* <!-- component --> */}
           {
-            props.user.value ? <h1>User exists</h1>
+            props.user.value ? <h1> 
+                User Access
+            </h1>
               :
               <div className="flex items-center  justify-center">
                 {/* <!-- Login Container --> */}

@@ -11,7 +11,9 @@ import AddIcon from '@mui/icons-material/Add';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { generateImgUrl } from '../helpers/urlConfig';
+// import { Rubik_Vinyl } from "next/font/google";
 
+// export const  rubikvinyl = Rubik_Vinyl({weight:"400",subsets:["latin"]})
 interface PropsTypes {
   openDrawer: boolean
   navLinkRef: any,
@@ -128,7 +130,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
 
 
     }
-    console.log(this.state.cartConRef.current.classList.contains("translate-x-full"))
+    // console.log(this.state.cartConRef.current.classList.contains("translate-x-full"))
   }
   render(): React.ReactNode {
     let links = [
@@ -166,14 +168,14 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
           {/* <label htmlFor="footer-field" className="leading-7 text-sm text-gray-600">Placeholder</label> */}
           <input type="text" id="footer-field" placeholder='search for products' name="search" className="w-full bg-white bg-opacity-20 rounded focus:ring-2 focus:bg-transparent  text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
         </div>
-        <button className="inline-flex text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">Button</button>
+        <button className="inline-flex text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">search</button>
        
       </div>
-          <div className='flex items-center my-2'>
+          {/* <div className='flex items-center my-2'>
 
           <Link href="/admin" className='border-b'>Become a Seller</Link>
         
-            </div>
+            </div> */}
         </header>
         <nav ref={this.state.navLinkRef} className={` ${this.props.router.pathname.slice(0,6) === "/admin" ? " hidden " : " flex  " } `+ styles.nav + " sticky top-0 bg-gray-800" }>
         <div className={styles.nav_link} style={{
@@ -192,7 +194,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
               })
             }
           </div>
-          <div className={styles.logo}><Link href="/" className='text-2xl' >E-ShopNepal</Link></div>
+          <div className={styles.logo}><Link href="/" className='text-2xl font-bold' >E-ShopNepal</Link></div>
          
           <div className='flex items-center justify-end' >
         
@@ -259,17 +261,18 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                   Object.keys(this.props.cart).length > 0 &&
                                   Object.keys(this.props.cart).map((key, ind) => {
                                     return (
-                                      <li className="flex py-6" key={ind}>
-                                        <Link className='flex' onClick={this.toggleCart}  href={`/product/${this.props.cart[key].slug}`}>
+                                      <li className="flex py-6 w-full" key={ind}>
+                                        <div className='flex w-full' >
                                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                           <Image src={generateImgUrl(this.props.cart[key].imgSrc)} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." width={100} height={100} layout="responsive" className="h-full w-full object-cover object-center" />
                                         </div>
 
-                                        <div className="ml-4 flex flex-1 flex-col">
+                                        <div className="ml-4 flex  flex-col w-full">
                                           <div>
                                             <div className="flex justify-between text-base font-medium text-gray-900">
-                                             
+                                             <Link onClick={this.toggleCart}  href={`/product/${this.props.cart[key].slug}`}>
                                                 <h3 style={{width:"100px"}} className='truncate'>{this.props.cart[key].title}</h3>
+                                             </Link>
                                             
                                               <p className="ml-4">Rs.{this.props.cart[key].price}</p>
                                             </div>
@@ -290,7 +293,7 @@ class Navbar extends Component<any, PropsTypes, WithRouterProps> {
                                             </div>
                                           </div>
                                         </div>
-                                        </Link>
+                                        </div>
                                       </li>
                                     )
                                   })

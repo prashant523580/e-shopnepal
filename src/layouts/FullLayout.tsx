@@ -14,6 +14,7 @@ const MainWrapper = experimentalStyled("div")(() => ({
   minHeight: "100vh",
   overflow: "hidden",
   width: "100%",
+  zIndex:"9999999"
 }));
 
 const PageWrapper = experimentalStyled("div")(({ theme }:any) => ({

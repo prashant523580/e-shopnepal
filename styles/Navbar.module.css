@@ -31,6 +31,10 @@
       text-align: center;
       text-transform: capitalize;
       transition: all .3s ease;
+      font-weight: bold;
+    }
+    .link:hover{
+      text-decoration: underline;
     }
     .link.active{
        animation: blink 2s linear;

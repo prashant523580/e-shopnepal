@@ -111,11 +111,11 @@ export default function All(props: any) {
             </div>
             <div className='w-[70%] max-md:w-[100%] max-md:my-2 py-3 h-[100vh] overflow-y-auto scrollbar-hide bg-gray-300 rounded-3xl shadow-xl' >
 
-                <div className='mt-6 grid grid-cols-2 px-4 gap-y-6 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-5'>
+                <div className='mt-6 grid grid-cols-1 px-4 gap-y-6 gap-x-3 md:grid-cols-2 lg:grid-cols-3 xl:gap-x-5'>
 
                     {
                         currentProducts.map((product: any, ind) => {
-                            console.log(product)
+                            // console.log(product)
                             return (
                                 <ProductCard
                                 key={ind}

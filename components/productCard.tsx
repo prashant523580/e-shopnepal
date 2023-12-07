@@ -25,20 +25,22 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
 
       <Link href={"/product/" + slug} >
         <div
-          className="aspect-w-1 relative border-b h-[200px] max-md:h-[150px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
-      
+          className="aspect-w-1 relative border-b h-[250px] max-md:h-[200px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
+
         >
-          <Image 
-          fill
-          sizes='100%'
+          <Image
+            fill
+            sizes='100%'
+            objectFit="cover"
+            objectPosition='center'
             src={generateImgUrl(imgSrc)} alt={title}
             priority
             //  objectFit={"contain"}
             className="transition-all h-full w-full object-fill  object-top group-hover:opacity-75"
           />
           <p className=" absolute left-1 top-1  bg-gray-500 opacity-60 rounded-xl px-2  text-sm text-white">{brand}<LocalOfferIcon sx={{
-            fontSize:15
-          }}/></p>
+            fontSize: 15
+          }} /></p>
           <p className=" absolute bottom-2 right-2 bg-orange-600 rounded-md px-2  text-sm font-medium text-white">Rs.{price}</p>
         </div>
         <div className='px-2 py-1'>
@@ -58,11 +60,11 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
         fontWeight: "bold",
         width: "100%",
         borderRadius: 0,
-        fontFamily:"sans-serif",
-        textTransform:"capitalize"
+        fontFamily: "sans-serif",
+        textTransform: "capitalize"
       }}>Add to Bag <ShoppingCartOutlinedIcon sx={{
-        ml:2,
-      }}/></Button>
+        ml: 2,
+      }} /></Button>
 
 
     </div>
