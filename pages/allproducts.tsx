@@ -4,6 +4,7 @@ import ProductCard from '../components/productCard';
 import { connectToDatabase } from '../lib/mongodb';
 import { getAllProducts } from '../redux/actions/product.action';
 import { useAppDispatch, useAppSelector } from '../redux/store';
+import ProductComponent from '../components/ProductComponent';
 
 export default function All(props: any) {
     const [allProducts, setAllProducts] = React.useState<Array<object>>([]);
@@ -74,8 +75,8 @@ export default function All(props: any) {
     }
     return (
         <MainLayout>
-
-        <section className='flex justify-between flex-row  max-md:flex-col '>
+            <ProductComponent handleProducts={handleProducts} addToCart={props.addToCart} currentProducts={currentProducts} brands={brandCategory} category={productCategory}/>
+        {/* <section className='flex justify-between flex-row  max-md:flex-col '>
             <div className='w-[25%] max-md:w-[100%] max-md:sticky top-0 max-md:flex flex-row sm:px-1 md:px-2 lg:px-3 xl:px-5 h-[100vh] max-md:h-[auto] bg-gray-300 rounded-3xl' >
                 <div className='px-1 py-5 max-md:flex-row'>
                     <div>
@@ -133,7 +134,7 @@ export default function All(props: any) {
                             }
                 </div>
             </div>
-        </section>
+        </section> */}
 </MainLayout>
     )
 }

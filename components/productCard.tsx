@@ -21,17 +21,16 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
   // console.log(title)
   return (
 
-    <div className="transition-all rounded-md flex flex-col">
+    <div className="transition-all rounded-md flex flex-col h-[300px]">
 
       <Link href={"/product/" + slug} >
         <div
-          className="aspect-w-1 relative border-b h-[250px] max-md:h-[200px]  aspect-h-1 w-full  overflow-hidden rounded-lg  bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
-
+          className=" relative border-b h-[200px] max-md:h-[150px] w-full  overflow-hidden rounded-lg  bg-white xl:aspect-w-7 xl:aspect-h-8"
         >
           <Image
             fill
             sizes='100%'
-            objectFit="cover"
+            objectFit="contain"
             objectPosition='center'
             src={generateImgUrl(imgSrc)} alt={title}
             priority
@@ -41,14 +40,14 @@ export default function ProductCard({ addToCart, productItem }: PropsTypes) {
           <p className=" absolute left-1 top-1  bg-gray-500 opacity-60 rounded-xl px-2  text-sm text-white">{brand}<LocalOfferIcon sx={{
             fontSize: 15
           }} /></p>
-          <p className=" absolute bottom-2 right-2 bg-orange-600 rounded-md px-2  text-sm font-medium text-white">Rs.{price}</p>
+          <p className=" absolute bottom-2 right-2 bg-orange-600 rounded-md px-2  text-base font-medium text-white">Rs.{price}</p>
         </div>
         <div className='px-2 py-1'>
 
           <h3 style={{
             fontFamily: "var(--font-kaveat)"
-          }} className="font-bold text-sm text-gray-500 truncate">{title}</h3>
-          <h3 className="text-gray-600  text-sm  title-font">Category : {category}</h3>
+          }} className="font-bold text-base text-gray-800 truncate">{title}</h3>
+          <h3 className="text-gray-700  text-sm  title-font">Category : {category}</h3>
 
           <p className=" uppercase space-x-2 text-xs"> {size.length > 0 ? size.map((si: any, ind: number) => <span key={ind}>{si} </span>) : "Out Of Stock"}</p>
         </div>
